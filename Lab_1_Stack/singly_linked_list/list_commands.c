@@ -13,6 +13,7 @@ enum ProgrammStatus List_Ctor(struct List* list)
     assert(list);
     enum ProgrammStatus status = OK;
 
+
     list->start_list = NULL;
     list->size = 0;
 
@@ -22,8 +23,17 @@ enum ProgrammStatus List_Ctor(struct List* list)
 
 struct List* List_Dtor(struct List* list)
 {   
-    list->size = 0;
-    free_list(list->start_list);
+    assert(list);
+
+
+    struct Node* current_node = list->start_list; 
+    for (size_t i = 0; i < list->size; i++)
+    {
+        struct Node* new_current_node = current_node->next;
+        free(current_node);
+        current_node = new_current_node;
+        if (current_node == NULL) break;
+    }
 
     return NULL;
 }
@@ -82,19 +92,9 @@ enum ProgrammStatus get_first_elem(struct List* list, ElemArr_t* elem)
 }
 
 
-static void free_list(struct Node* cur_node)
-{
-    if (cur_node == NULL) return;
-
-    free_list(cur_node->next);
-    free(cur_node);
-}
-
-
 static struct Node* create_new_node(ElemArr_t* elem, struct Node* next, enum ProgrammStatus* status)
 {
     assert(elem);
-    // assert(next);
     assert(status);
     if ((*status) != OK) return NULL;
 

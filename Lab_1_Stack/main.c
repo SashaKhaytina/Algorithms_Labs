@@ -1,14 +1,16 @@
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
+#include <sys/time.h>
+
 
 #include "header.h"
-
-// #include "tests.h"
 
 #include "dynamic_array/dynamic_array.h"
 #include "singly_linked_list/list.h"
 
 #include "input/input.h"
+
 
 
 int main(int argc, char* argv[])
@@ -21,57 +23,23 @@ int main(int argc, char* argv[])
     {
         struct DynamicArray dyn_stack = {};
         DynamicArray_Ctor(&dyn_stack, 4, sizeof(ElemArr_t));
+
+        START_TIMER
         get_test(test_file, DYNAMIC_STACK, &dyn_stack);
+        END_TIMER
+        
         DynamicArray_Dtor(&dyn_stack);
     }
     else
     {
         struct List list = {};
         List_Ctor(&list);
+
+        START_TIMER
         get_test(test_file, LIST, &list);
+        END_TIMER
+
         List_Dtor(&list);
     }
-
-
-    // printf("END ARRAY\n");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // printf("TEST DYN ARR:\n\n");
-
-    // struct DynamicArray dyn_stack = {};
-    // DynamicArray_Ctor(&dyn_stack, 4, sizeof(ElemArr_t));
-
-    // TEST_DYN_ARR_1
-
-    // DynamicArray_Dtor(&dyn_stack);
-
-    //______________________________________________________
-
-    // printf("TEST LIST:\n\n");
-
-    // struct List list = {};
-    // List_Ctor(&list);
-
-    // TEST_LIST_1
-
-    // List_Dtor(&list);
-
 
 }
