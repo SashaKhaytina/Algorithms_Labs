@@ -8,7 +8,7 @@
 
 
 
-typedef int ElemArr_t; // IT IS NOT HERE!
+// typedef int ElemArr_t; // IT IS NOT HERE!
 
 enum ProgrammStatus
 {
@@ -18,6 +18,10 @@ enum ProgrammStatus
     GET_ELEM_IN_EMPTY_STACK,
     REALLOC_ERROR,
     CALLOC_NODE_ERROR,
+    ERROR_OPEN_FILE,
+    ERROR_MODE,
+
+    ERROR_COMMAND_IN_TEST,
     ERROR 
 };
 

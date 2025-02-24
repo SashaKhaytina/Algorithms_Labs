@@ -1,9 +1,9 @@
-#ifndef LIST
-#define LIST
+#ifndef LINKED_LIST
+#define LINKED_LIST
 
 #include <stdio.h>
 
-#include "../errors.h"
+#include "../header.h"
 
 
 // typedef int ElemArr_t;

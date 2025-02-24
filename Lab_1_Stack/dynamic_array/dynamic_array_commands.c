@@ -151,6 +151,8 @@ enum ProgrammStatus resize_dynamic_array(struct DynamicArray* dyn_stack, size_t 
 
 
 
+
+
 void print_dyn_stack_info(struct DynamicArray* dyn_stack)
 {
     assert(dyn_stack);

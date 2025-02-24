@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-#include "errors.h"
+#include "../header.h"
 
 
 // typedef int ElemArr_t;
