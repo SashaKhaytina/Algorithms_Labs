@@ -6,9 +6,6 @@
 #include "../header.h"
 
 
-// typedef int ElemArr_t;
-
-
 struct Node
 {
     ElemArr_t num;

@@ -12,7 +12,6 @@ enum ProgrammStatus get_test(FILE* test_file, enum Mode mode, void* stack)
     if (test_file == NULL) return ERROR_OPEN_FILE;
 
     char command[10] = {};
-    // fscanf(test_file, "%s", command)
 
     while (fscanf(test_file, "%s", command) != EOF)
     {
@@ -50,25 +49,4 @@ enum ProgrammStatus get_test(FILE* test_file, enum Mode mode, void* stack)
             return ERROR_COMMAND_IN_TEST;
         }
     }
-
-    // switch (mode)
-    // {
-    // case DYNAMIC_STACK:
-    //     {
-            
-    //         break;
-    //     }
-
-    
-    // case LIST:
-    //     {
-
-    //         break;
-    //     }
-    
-    // default:
-    //     {
-    //         return ERROR_MODE;
-    //     }
-    // }
 }

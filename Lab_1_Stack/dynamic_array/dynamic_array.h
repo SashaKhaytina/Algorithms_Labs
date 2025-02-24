@@ -6,8 +6,6 @@
 #include "../header.h"
 
 
-// typedef int ElemArr_t;
-
 
 struct DynamicArray
 {
@@ -16,7 +14,6 @@ struct DynamicArray
     size_t capacity;
 };
 
-// struct DynamicArray* DynamicArray_Ctor(size_t size, size_t element_size);
 enum ProgrammStatus  DynamicArray_Ctor(struct DynamicArray* dyn_stack, size_t size, size_t element_size);
 struct DynamicArray* DynamicArray_Dtor(struct DynamicArray* dyn_stack);
 

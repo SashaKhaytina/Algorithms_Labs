@@ -7,9 +7,6 @@
 #define CHECK_STATUS(status) if (status != OK) return status;
 
 
-
-// typedef int ElemArr_t; // IT IS NOT HERE!
-
 enum ProgrammStatus
 {
     OK, 

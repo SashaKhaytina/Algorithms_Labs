@@ -41,7 +41,7 @@ struct List* List_Dtor(struct List* list)
 
 enum ProgrammStatus list_push(struct List* list, ElemArr_t* elem)
 {
-    assert(list); // We can do own assert for status
+    assert(list);
     assert(elem);
     enum ProgrammStatus status = OK;
 

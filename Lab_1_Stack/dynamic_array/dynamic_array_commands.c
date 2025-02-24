@@ -2,28 +2,6 @@
 
 #include <malloc.h>
 
-// struct DynamicArray* DynamicArray_Ctor(size_t size, size_t element_size)
-// {
-//     struct DynamicArray dyn_stack = {};
-    
-//     dyn_stack.array = (ElemArr_t*) calloc(size, element_size);
-//     dyn_stack.size = 0;
-//     dyn_stack.capacity = size;
-
-//     return dyn_stack.array;
-//     // return a;
-// }
-
-
-// struct DynamicArray* DynamicArray_Dtor(struct DynamicArray* dyn_stack)
-// {   
-//     dyn_stack->size = 0;
-//     dyn_stack->capacity = 0;
-//     free(dyn_stack->array);
-
-//     return NULL;
-// }
-
 
 enum ProgrammStatus DynamicArray_Ctor(struct DynamicArray* dyn_stack, size_t size, size_t element_size)
 {
@@ -39,7 +17,6 @@ enum ProgrammStatus DynamicArray_Ctor(struct DynamicArray* dyn_stack, size_t siz
     dyn_stack->capacity = size;
 
     return status;
-    // return a;
 }
 
 
@@ -55,7 +32,7 @@ struct DynamicArray* DynamicArray_Dtor(struct DynamicArray* dyn_stack)
 
 enum ProgrammStatus dynamic_array_push(struct DynamicArray* dyn_stack, ElemArr_t* elem)
 {
-    assert(dyn_stack); // We can do own assert for status
+    assert(dyn_stack);
     assert(elem);
     enum ProgrammStatus status = OK;
 
@@ -69,19 +46,13 @@ enum ProgrammStatus dynamic_array_push(struct DynamicArray* dyn_stack, ElemArr_t
     dyn_stack->array[dyn_stack->size] = *elem;
     dyn_stack->size++;
 
-    // else
-    // {
-    //     dyn_stack->array[dyn_stack->size] = *elem;
-    //     dyn_stack->size++;
-    // }
-
     return status;
 }
 
 
-enum ProgrammStatus dynamic_array_pop(struct DynamicArray* dyn_stack) // NOT RETURN ELEM!!!!!!! ?????????????????????????
+enum ProgrammStatus dynamic_array_pop(struct DynamicArray* dyn_stack)
 {
-    assert(dyn_stack); // We can do own assert for status
+    assert(dyn_stack);
     enum ProgrammStatus status = OK;
 
 
@@ -95,12 +66,6 @@ enum ProgrammStatus dynamic_array_pop(struct DynamicArray* dyn_stack) // NOT RET
 
     dyn_stack->size--;
     dyn_stack->array[dyn_stack->size] = 0;
-    
-    // else
-    // {
-    //     dyn_stack->size--;
-    //     dyn_stack->array[dyn_stack->size] = 0;
-    // }
 
     return status;
 }
@@ -135,18 +100,6 @@ enum ProgrammStatus resize_dynamic_array(struct DynamicArray* dyn_stack, size_t 
     dyn_stack->capacity = new_size;
 
     return status;
-
-
-    // if (new_size > dyn_stack->capacity)
-    // {
-    //     dyn_stack->array = (ElemArr_t*) realloc(dyn_stack->array, new_size * sizeof(ElemArr_t));
-    //     if (dyn_stack->array == NULL) return REALLOC_ERROR;
-    // }
-    // else
-    // {
-
-    // }
-
 }
 
 

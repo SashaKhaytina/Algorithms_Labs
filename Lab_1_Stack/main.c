@@ -15,8 +15,6 @@
 
 int main(int argc, char* argv[])
 {
-
-
     FILE* test_file = fopen(argv[1], "r");
 
     if (strcmp(argv[2], "DYN") == 0)
@@ -26,6 +24,7 @@ int main(int argc, char* argv[])
 
         START_TIMER
         get_test(test_file, DYNAMIC_STACK, &dyn_stack);
+        PRINTF_CYAN("DYNAMIC ARRAY:");
         END_TIMER
         
         DynamicArray_Dtor(&dyn_stack);
@@ -37,6 +36,7 @@ int main(int argc, char* argv[])
 
         START_TIMER
         get_test(test_file, LIST, &list);
+        PRINTF_CYAN("LIST:");
         END_TIMER
 
         List_Dtor(&list);
