@@ -1,0 +1,1 @@
+gcc create_test_1.c -o generation_test1
