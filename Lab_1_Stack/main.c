@@ -11,7 +11,7 @@
 
 #include "input/input.h"
 
-const int NUM_TESTS = 21;
+const int NUM_TESTS = 51;
 
 
 int main(int argc, char* argv[])

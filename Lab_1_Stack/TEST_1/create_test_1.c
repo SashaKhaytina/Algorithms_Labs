@@ -16,9 +16,11 @@ int main()
 
     int n = SIZE_TEST_1;
 
+    for (int i = 1; i < n + 1; i++) { fprintf(file, "PUSH %d\n", i); }
+
     while (n >= SIZE_TEST_1)
     {
-        for (int i = 1; i < n + 1; i++) { fprintf(file, "PUSH %d\n", i); }
+        // for (int i = 1; i < n + 1; i++) { fprintf(file, "PUSH %d\n", i); }
 
         for (int i = 1; i < n/2; i++)   { fprintf(file, "POP\n"); }
 
