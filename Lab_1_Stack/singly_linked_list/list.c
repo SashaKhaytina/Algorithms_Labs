@@ -3,9 +3,8 @@
 #include <malloc.h>
 
 
-// static void         list_free      (struct Node* cur_node);
 static struct Node* create_new_node(ElemArr_t* elem, struct Node* next, enum TestStatus* status);
-static void         print_nodes    (struct Node* node);
+static void         print_nodes    (const struct Node* node);
 
 
 enum TestStatus List_Ctor(struct List* list)
@@ -45,7 +44,7 @@ enum TestStatus list_push(struct List* list, ElemArr_t* elem)
     assert(elem);
     enum TestStatus status = OK;
 
-    list->start_list = create_new_node(elem, list->start_list, &status); // Это можно разбить на "создали потом присвоили (без list->start_list)" для понятности
+    list->start_list = create_new_node(elem, list->start_list, &status); 
 
     list->size++;
 
@@ -76,7 +75,7 @@ enum TestStatus list_pop(struct List* list)
 }
 
 
-enum TestStatus list_get_first_elem(struct List* list, ElemArr_t* elem)
+enum TestStatus list_get_first_elem(const struct List* list, ElemArr_t* elem)
 {
     assert(list);
     assert(elem);
@@ -115,7 +114,7 @@ static struct Node* create_new_node(ElemArr_t* elem, struct Node* next, enum Tes
 
 
 
-void list_print(struct List* list)
+void list_print(const struct List* list)
 {
     printf("LIST:\nsize - %lu\n", list->size);
 
@@ -125,7 +124,7 @@ void list_print(struct List* list)
 }
 
 
-static void print_nodes(struct Node* node)
+static void print_nodes(const struct Node* node)
 {
     printf("%d ", node->num);
 

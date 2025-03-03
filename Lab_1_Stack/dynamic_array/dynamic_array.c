@@ -73,7 +73,7 @@ enum TestStatus dynamic_array_pop(struct DynamicArray* dyn_stack)
 }
 
 
-enum TestStatus dynamic_array_get_last_elem(struct DynamicArray* dyn_stack, ElemArr_t* elem)
+enum TestStatus dynamic_array_get_last_elem(const struct DynamicArray* dyn_stack, ElemArr_t* elem)
 {
     assert(dyn_stack);
     assert(elem);
@@ -94,10 +94,6 @@ static enum TestStatus resize_dynamic_array(struct DynamicArray* dyn_stack, size
     assert(dyn_stack);
     enum TestStatus status = OK;
 
-
-    // dyn_stack->array = (ElemArr_t*) realloc(dyn_stack->array, new_size * sizeof(ElemArr_t));
-    // if (dyn_stack->array == NULL) status = REALLOC_ERROR;
-
     ElemArr_t* reallocated_stack = (ElemArr_t*) realloc(dyn_stack->array, new_size * sizeof(ElemArr_t));
     if (dyn_stack->array == NULL) status = REALLOC_ERROR;
     else dyn_stack->array = reallocated_stack;
@@ -113,7 +109,7 @@ static enum TestStatus resize_dynamic_array(struct DynamicArray* dyn_stack, size
 
 
 
-void dynamic_array_print_info(struct DynamicArray* dyn_stack)
+void dynamic_array_print_info(const struct DynamicArray* dyn_stack)
 {
     assert(dyn_stack);
     printf("capacity - %lu\n", dyn_stack->capacity);
