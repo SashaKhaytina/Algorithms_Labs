@@ -1,5 +1,5 @@
-#ifndef ERRORS
-#define ERRORS
+#ifndef ERRORS_H
+#define ERRORS_H
 
 
 #include <assert.h>
@@ -7,19 +7,19 @@
 #define CHECK_STATUS(status) if (status != OK) return status;
 
 
-enum ProgrammStatus
+enum TestStatus
 {
-    OK, 
-    ERROR_CTOR,
-    POP_EMPTY_STACK, 
-    GET_ELEM_IN_EMPTY_STACK,
-    REALLOC_ERROR,
-    CALLOC_NODE_ERROR,
-    ERROR_OPEN_FILE,
-    ERROR_MODE,
+    OK = 0, 
+    ERROR_CTOR = 1 << 1,
+    POP_EMPTY_STACK = 1 << 2, 
+    GET_ELEM_IN_EMPTY_STACK = 1 << 3,
+    REALLOC_ERROR = 1 << 4,
+    CALLOC_NODE_ERROR = 1 << 5,
+    ERROR_OPEN_FILE = 1 << 6,
+    ERROR_MODE_STACK = 1 << 7,
 
-    ERROR_COMMAND_IN_TEST,
-    ERROR 
+    ERROR_COMMAND_IN_TEST = 1 << 8,
+    ERROR = 1 << 9
 };
 
 

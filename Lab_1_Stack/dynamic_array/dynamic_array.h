@@ -1,10 +1,9 @@
-#ifndef DYNARR
-#define DYNARR
+#ifndef DYNAMIC_ARRAY_STACK_H
+#define DYNAMIC_ARRAY_STACK_H
 
 #include <stdio.h>
 
-#include "../header.h"
-
+#include "../common.h"
 
 
 struct DynamicArray
@@ -14,18 +13,14 @@ struct DynamicArray
     size_t capacity;
 };
 
-enum ProgrammStatus  DynamicArray_Ctor(struct DynamicArray* dyn_stack, size_t size, size_t element_size);
-struct DynamicArray* DynamicArray_Dtor(struct DynamicArray* dyn_stack);
+enum TestStatus  Dynamic_Array_Ctor(struct DynamicArray* dyn_stack, size_t size, size_t element_size);
+struct DynamicArray* Dynamic_Array_Dtor(struct DynamicArray* dyn_stack);
 
-enum ProgrammStatus dynamic_array_push  (struct DynamicArray* dyn_stack, ElemArr_t* elem);
-enum ProgrammStatus dynamic_array_pop   (struct DynamicArray* dyn_stack);
-enum ProgrammStatus get_last_elem       (struct DynamicArray* dyn_stack, ElemArr_t* elem);
-enum ProgrammStatus resize_dynamic_array(struct DynamicArray* dyn_stack, size_t new_size); // this can be static
+enum TestStatus dynamic_array_push         (struct DynamicArray* dyn_stack, ElemArr_t* elem);
+enum TestStatus dynamic_array_pop          (struct DynamicArray* dyn_stack);
+enum TestStatus dynamic_array_get_last_elem(struct DynamicArray* dyn_stack, ElemArr_t* elem); // const
 
-
-void print_dyn_stack_info(struct DynamicArray* dyn_stack);
-
-
+void dynamic_array_print_info(struct DynamicArray* dyn_stack); // const
 
 
 #endif

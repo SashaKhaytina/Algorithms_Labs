@@ -1,5 +1,8 @@
 // ТУТ ВЕЗДЕ ДОЛЖНА СТОЯТЬ ПРОВЕРКА НА ВОЗВРАЩАЕМОЕ ЗНАЧЕНИЕ!!!!
 
+#ifndef TESTS_H
+#define TESTS_H
+
 
 
 #define TEST_DYN_ARR_1    ElemArr_t num = 111; dynamic_array_push(&dyn_stack, &num); print_dyn_stack_info(&dyn_stack);\
@@ -35,3 +38,5 @@
 \
     list_pop(&list); print_list(&list);\
 
+
+#endif

@@ -1,9 +1,10 @@
-#ifndef INPUT
-#define INPUT
+#ifndef INPUT_H
+#define INPUT_H
 
-#include "../header.h"
+#include "../common.h"
 
+// const int MAX_COMMAND_SIZE = 10;
 
-enum ProgrammStatus get_test(FILE* test_file, enum Mode mode, void* stack);
+enum TestStatus get_test(FILE* test_file, enum ModeStack ModeStack, void* stack);
 
 #endif

@@ -1,9 +1,9 @@
-#ifndef LINKED_LIST
-#define LINKED_LIST
+#ifndef LINKED_LIST_H
+#define LINKED_LIST_H
 
 #include <stdio.h>
 
-#include "../header.h"
+#include "../common.h"
 
 
 struct Node
@@ -20,14 +20,14 @@ struct List
 };
 
 
-enum ProgrammStatus List_Ctor(struct List* list);
+enum TestStatus List_Ctor(struct List* list);
 struct List*        List_Dtor(struct List* list);
 
-enum ProgrammStatus list_push     (struct List* list, ElemArr_t* elem);
-enum ProgrammStatus list_pop      (struct List* list);
-enum ProgrammStatus get_first_elem(struct List* list, ElemArr_t* elem);
+enum TestStatus list_push          (struct List* list, ElemArr_t* elem);
+enum TestStatus list_pop           (struct List* list);
+enum TestStatus list_get_first_elem(struct List* list, ElemArr_t* elem); //const
 
-void print_list(struct List* list);
+void list_print(struct List* list); // const
 
 
 
