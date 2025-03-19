@@ -14,3 +14,8 @@ echo Dynamic array better
 ./start TEST_2/test2.txt LIST
 
 echo Dynamic array better again
+
+
+cd TEST_3
+./generation_test_3.sh
+echo Dynamic array better again
