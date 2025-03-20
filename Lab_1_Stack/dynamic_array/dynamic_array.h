@@ -21,7 +21,7 @@ struct DynamicArray
  *
  * \return Execution status.
 */
-enum TestStatus      Dynamic_Array_Ctor(struct DynamicArray* dyn_stack, size_t size, size_t element_size);
+enum TestStatus dynamic_array_ctor(struct DynamicArray* dyn_stack, size_t size, size_t element_size);
 
 
 /*! \brief Function free dynamic array.
@@ -29,7 +29,7 @@ enum TestStatus      Dynamic_Array_Ctor(struct DynamicArray* dyn_stack, size_t s
  *
  * \return NULL.
 */
-struct DynamicArray* Dynamic_Array_Dtor(struct DynamicArray* dyn_stack);
+struct DynamicArray* dynamic_array_dtor(struct DynamicArray* dyn_stack);
 
 
 
@@ -41,7 +41,7 @@ struct DynamicArray* Dynamic_Array_Dtor(struct DynamicArray* dyn_stack);
  * 
  * \return Execution status.
 */
-enum TestStatus dynamic_array_push         (struct DynamicArray* dyn_stack, ElemArr_t* elem);
+enum TestStatus dynamic_array_push(struct DynamicArray* dyn_stack, ElemArr_t* elem);
 
 
 /*! \brief Function pop (delete) element in dynamic array.
@@ -51,7 +51,7 @@ enum TestStatus dynamic_array_push         (struct DynamicArray* dyn_stack, Elem
  * 
  * \return Execution status.
 */
-enum TestStatus dynamic_array_pop          (struct DynamicArray* dyn_stack);
+enum TestStatus dynamic_array_pop(struct DynamicArray* dyn_stack);
 
 
 /*! \brief Function put last dynamic array`s element in elem.

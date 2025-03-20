@@ -5,7 +5,7 @@
 static enum TestStatus resize_dynamic_array(struct DynamicArray* dyn_stack, size_t new_size);
 
 
-enum TestStatus Dynamic_Array_Ctor(struct DynamicArray* dyn_stack, size_t size, size_t element_size)
+enum TestStatus dynamic_array_ctor(struct DynamicArray* dyn_stack, size_t size, size_t element_size)
 {
     assert(dyn_stack);
     enum TestStatus status = OK;
@@ -22,7 +22,7 @@ enum TestStatus Dynamic_Array_Ctor(struct DynamicArray* dyn_stack, size_t size, 
 }
 
 
-struct DynamicArray* Dynamic_Array_Dtor(struct DynamicArray* dyn_stack)
+struct DynamicArray* dynamic_array_dtor(struct DynamicArray* dyn_stack)
 {   
     dyn_stack->size = 0;
     dyn_stack->capacity = 0;

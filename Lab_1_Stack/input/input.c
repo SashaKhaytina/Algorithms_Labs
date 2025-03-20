@@ -5,15 +5,16 @@
 #include "../dynamic_array/dynamic_array.h"
 #include "../singly_linked_list/list.h"
 
+const int MAX_COMMAND_SIZE = 10;
+
 
 enum TestStatus get_test(FILE* test_file, enum ModeStack ModeStack, void* stack)
 {
     enum TestStatus status= OK;
     if (test_file == NULL) return ERROR_OPEN_FILE;
 
-    // char command[MAX_COMMAND_SIZE] = {};
-    char command[10] = {};
-
+    char command[MAX_COMMAND_SIZE] = {};
+    
     while (fscanf(test_file, "%10s", command) != EOF)
     {
         CHECK_STATUS(status);

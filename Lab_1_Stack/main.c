@@ -4,8 +4,6 @@
 #include <sys/time.h>
 
 
-// #include "common.h"
-
 #include "dynamic_array/dynamic_array.h"
 #include "singly_linked_list/list.h"
 
@@ -26,13 +24,13 @@ int main(int argc, char* argv[])
 
 
             struct DynamicArray dyn_stack = {};
-            Dynamic_Array_Ctor(&dyn_stack, 4, sizeof(ElemArr_t));
+            dynamic_array_ctor(&dyn_stack, 4, sizeof(ElemArr_t));
 
             START_TIMER
             get_test(test_file, DYNAMIC_STACK, &dyn_stack);
             END_TIMER
             
-            Dynamic_Array_Dtor(&dyn_stack);
+            dynamic_array_dtor(&dyn_stack);
 
 
             fclose(test_file);

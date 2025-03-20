@@ -35,14 +35,14 @@ int main(int argc, char* argv[])
         for (size_t i = 0; i < NUM_TESTS; i++)
         {
             struct DynamicArray dyn_stack = {};
-            Dynamic_Array_Ctor(&dyn_stack, 4, sizeof(ElemArr_t));
+            dynamic_array_ctor(&dyn_stack, 4, sizeof(ElemArr_t));
 
             for (int i = 1; i < SIZE_TEST_3 + 1; i++) { status = dynamic_array_push(&dyn_stack, &i); }
             START_TIMER
             get_test(test_file, DYNAMIC_STACK, &dyn_stack);
             END_TIMER
 
-            Dynamic_Array_Dtor(&dyn_stack);
+            dynamic_array_dtor(&dyn_stack);
         }
 
         PRINTF_CYAN("DYNAMIC ARRAY:");
@@ -72,10 +72,6 @@ int main(int argc, char* argv[])
         fclose(test_file);
     }
 }
-
-
-
-
 
 
 void create_file()
