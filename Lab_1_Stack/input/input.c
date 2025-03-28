@@ -8,7 +8,7 @@
 const int MAX_COMMAND_SIZE = 10;
 
 
-enum TestStatus get_test(FILE* test_file, enum ModeStack ModeStack, void* stack)
+enum TestStatus run_test(FILE* test_file, enum ModeStack ModeStack, void* stack)
 {
     enum TestStatus status= OK;
     if (test_file == NULL) return ERROR_OPEN_FILE;
@@ -17,7 +17,7 @@ enum TestStatus get_test(FILE* test_file, enum ModeStack ModeStack, void* stack)
     
     while (fscanf(test_file, "%10s", command) != EOF)
     {
-        CHECK_STATUS(status);
+        CHECK_STATUS_OK(status);
 
         if (strcmp(command, "PUSH") == 0)
         {

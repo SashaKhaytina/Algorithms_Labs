@@ -7,9 +7,9 @@ static struct Node* create_new_node(ElemArr_t* elem, struct Node* next, enum Tes
 static void         print_nodes    (const struct Node* node);
 
 
-enum TestStatus List_Ctor(struct List* list)
+enum TestStatus list_ctor(struct List* list)
 {
-    assert(list);
+    CHECK_SOME_IS_NULL(ERROR_STACK_IS_NULL, list)
     enum TestStatus status = OK;
 
 
@@ -20,9 +20,9 @@ enum TestStatus List_Ctor(struct List* list)
 }
 
 
-struct List* List_Dtor(struct List* list)
+struct List* list_dtor(struct List* list)
 {   
-    assert(list);
+    CHECK_SOME_IS_NULL(NULL, list)
 
 
     struct Node* current_node = list->start_list; 
@@ -40,9 +40,9 @@ struct List* List_Dtor(struct List* list)
 
 enum TestStatus list_push(struct List* list, ElemArr_t* elem)
 {
-    assert(list);
-    assert(elem);
+    CHECK_SOME_IS_NULL(ERROR_NULL_POINTER, list, elem)
     enum TestStatus status = OK;
+
 
     list->start_list = create_new_node(elem, list->start_list, &status); 
 
@@ -55,12 +55,11 @@ enum TestStatus list_push(struct List* list, ElemArr_t* elem)
 
 enum TestStatus list_pop(struct List* list)
 {
-    assert(list); 
+    CHECK_SOME_IS_NULL(ERROR_STACK_IS_NULL, list)
     enum TestStatus status = OK;
 
 
     if (list->size == 0) return POP_EMPTY_STACK;
-
 
     struct Node* pop_node = list->start_list;
 
@@ -70,20 +69,18 @@ enum TestStatus list_pop(struct List* list)
 
     list->size--;
 
-
     return status;
 }
 
 
 enum TestStatus list_get_first_elem(const struct List* list, ElemArr_t* elem)
 {
-    assert(list);
-    assert(elem);
+    CHECK_SOME_IS_NULL(ERROR_NULL_POINTER, list, elem)
     enum TestStatus status = OK;
 
 
     if (list->size == 0) status = GET_ELEM_IN_EMPTY_STACK;
-    CHECK_STATUS(status);
+    CHECK_STATUS_OK(status);
 
     *elem = list->start_list->num;
 
@@ -93,8 +90,8 @@ enum TestStatus list_get_first_elem(const struct List* list, ElemArr_t* elem)
 
 static struct Node* create_new_node(ElemArr_t* elem, struct Node* next, enum TestStatus* status)
 {
-    assert(elem);
-    assert(status);
+    CHECK_SOME_IS_NULL(NULL, status, elem)
+
     if ((*status) != OK) return NULL;
 
 

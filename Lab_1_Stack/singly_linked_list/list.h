@@ -25,7 +25,7 @@ struct List
  *
  * \return Execution status.
 */
-enum TestStatus     List_Ctor(struct List* list);
+enum TestStatus     list_ctor(struct List* list);
 
 
 /*! \brief Function free linked list.
@@ -33,7 +33,7 @@ enum TestStatus     List_Ctor(struct List* list);
  *
  * \return NULL.
 */
-struct List*        List_Dtor(struct List* list);
+struct List*        list_dtor(struct List* list);
 
 
 

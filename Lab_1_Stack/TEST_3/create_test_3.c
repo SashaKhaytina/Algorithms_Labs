@@ -1,15 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "string.h"
+#include <sys/time.h>
+#include <time.h>
 
 #include "../dynamic_array/dynamic_array.h"
 #include "../singly_linked_list/list.h"
 
-#include <time.h>
-#include <sys/time.h>
-
 #include "../common.h"
-#include "string.h"
 #include "../input/input.h"
+#include "../timer.h"
+
 
 
 const char* NAME_FILE_TEST_3 = "test3.txt";
@@ -39,14 +40,16 @@ int main(int argc, char* argv[])
 
             for (int i = 1; i < SIZE_TEST_3 + 1; i++) { status = dynamic_array_push(&dyn_stack, &i); }
             START_TIMER
-            get_test(test_file, DYNAMIC_STACK, &dyn_stack);
+            run_test(test_file, DYNAMIC_STACK, &dyn_stack);
             END_TIMER
 
             dynamic_array_dtor(&dyn_stack);
         }
 
-        PRINTF_CYAN("DYNAMIC ARRAY:");
-        PRINT_TIME
+        // PRINTF_CYAN("DYNAMIC ARRAY:");
+        // PRINT_TIME
+        print_test_time(DYNAMIC_STACK, argv[1], average_time, NUM_TESTS);
+
 
         fclose(test_file);
     }
@@ -56,18 +59,20 @@ int main(int argc, char* argv[])
         for (size_t i = 0; i < NUM_TESTS; i++)
         {
             struct List list = {};
-            List_Ctor(&list);
+            list_ctor(&list);
 
             for (int i = 1; i < SIZE_TEST_3 + 1; i++) { status = list_push(&list, &i); }
             START_TIMER
-            get_test(test_file, LIST, &list);
+            run_test(test_file, LIST, &list);
             END_TIMER
 
-            List_Dtor(&list);
+            list_dtor(&list);
         }
 
-        PRINTF_CYAN("LIST:");
-        PRINT_TIME
+        // PRINTF_CYAN("LIST:");
+        // PRINT_TIME
+        print_test_time(LIST, argv[1], average_time, NUM_TESTS);
+
         
         fclose(test_file);
     }

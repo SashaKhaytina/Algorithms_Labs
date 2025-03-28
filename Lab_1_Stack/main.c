@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <string.h>
-#include <time.h>
 #include <sys/time.h>
-
+#include <time.h>
 
 #include "dynamic_array/dynamic_array.h"
 #include "singly_linked_list/list.h"
 
 #include "input/input.h"
+#include "timer.h"
 
 const int NUM_TESTS = 51;
 
@@ -26,9 +26,7 @@ int main(int argc, char* argv[])
             struct DynamicArray dyn_stack = {};
             dynamic_array_ctor(&dyn_stack, 4, sizeof(ElemArr_t));
 
-            START_TIMER
-            get_test(test_file, DYNAMIC_STACK, &dyn_stack);
-            END_TIMER
+            COUNT_TIME(run_test(test_file, DYNAMIC_STACK, &dyn_stack);)
             
             dynamic_array_dtor(&dyn_stack);
 
@@ -36,8 +34,9 @@ int main(int argc, char* argv[])
             fclose(test_file);
         }
 
-        PRINTF_CYAN("DYNAMIC ARRAY:");
-        PRINT_TIME
+        // PRINTF_CYAN("DYNAMIC ARRAY:");
+        // PRINT_TIME
+        print_test_time(DYNAMIC_STACK, argv[1], average_time, NUM_TESTS);
     }
     else
     {
@@ -49,20 +48,27 @@ int main(int argc, char* argv[])
 
 
             struct List list = {};
-            List_Ctor(&list);
+            list_ctor(&list);
 
-            START_TIMER
-            get_test(test_file, LIST, &list);
-            END_TIMER
+            COUNT_TIME(run_test(test_file, LIST, &list);)
 
-            List_Dtor(&list);
+            list_dtor(&list);
 
 
             fclose(test_file);
         }
 
-        PRINTF_CYAN("LIST:");
-        PRINT_TIME
+        // PRINTF_CYAN("LIST:");
+        // PRINT_TIME
+        print_test_time(LIST, argv[1], average_time, NUM_TESTS);
     }
 
 }
+
+
+// void print_test_time(enum ModeStack mode, char* file_test_name, double average_time, int num_test)
+// {
+//     if (mode == DYNAMIC_STACK) PRINTF_CYAN("DYNAMIC ARRAY:");
+//     else                       PRINTF_CYAN("LIST:");
+//     PRINTF_GREEN(" time of %s test: %g millisecond\n", file_test_name, average_time/num_test);
+// }
