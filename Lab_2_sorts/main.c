@@ -1,6 +1,37 @@
 #include <stdio.h>
 
+#include "Sorts/quadratic_sorts/bubble_sort.h"
+#include "Sorts/quadratic_sorts/insertion_sort.h"
+#include "Sorts/quadratic_sorts/selection_sort.h"
+#include "Sorts/quadratic_sorts/shell_sort.h"
+
+
+void print_arr(int* arr, size_t n);
+
+
 int main()
 {
+    int arr[] = {4, 7, 2, 11, 89, 3, 1, 2};
+    size_t n = 8;
+
+    print_arr(arr, n);
+
+    // bouble_sort(arr, n);
+    // insertion_sort(arr, n);
+    // selection_sort(arr, n);
+    shell_sort(arr, n);
     
+    print_arr(arr, n);
+
+
+}
+
+
+void print_arr(int* arr, size_t n)
+{
+    for (size_t i = 0; i < n; i++)
+    {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
 }
