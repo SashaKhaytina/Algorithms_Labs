@@ -3,7 +3,13 @@
 
 #include <stdio.h>
 
-const int MAX_WAY_SIZE = 200;
+
+enum FileType
+{
+    IN, 
+    OUT
+};
+
 
 double* test_sort(char* tests_in_way, char* tests_output_way, void (*sort)(int* arr, size_t size), int from, int to, int step);
 
