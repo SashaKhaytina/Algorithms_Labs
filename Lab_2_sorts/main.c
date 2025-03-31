@@ -7,6 +7,7 @@
 #include "Sorts/quadratic_sorts/selection_sort.h"
 #include "Sorts/quadratic_sorts/shell_sort.h"
 #include "Sorts/Merge_sort/merge_sort.h"
+#include "Sorts/Quick_sort/quick_sort.h"
 
 
 
@@ -24,6 +25,7 @@ int main()
     // // insertion_sort(arr, n);
     // // selection_sort(arr, n);
     // shell_sort(arr, n);
+    // quick_lomuto_sort(arr, n);
     
     // print_arr(arr, n);
     
@@ -31,7 +33,7 @@ int main()
     char str2[] = "Program_return_tests";
 
 
-    test_sort(str1, str2, merge_iterative_sort, 1, 1000000, 10000);
+    test_sort(str1, str2, quick_hoar_sort, 1, 1000000, 10000);
 
 
 }

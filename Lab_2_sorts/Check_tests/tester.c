@@ -10,7 +10,7 @@
 
 const int MAX_WAY_SIZE = 200;
 const int MAX_TEST_SIZE = 1000000;
-const char* GRAPH_TABLE = "Graphic/merge_iterative_sort.txt";
+const char* GRAPH_TABLE = "Graphic/quick_hoar_sort.txt";
 
 
 
