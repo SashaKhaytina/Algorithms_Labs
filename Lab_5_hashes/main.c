@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "hash_table.h"
-#include "num_testing_hash_table.h"
-#include "strings_testing_hash_table.h"
-#include "working_with_text.h"
+#include "hash_table/hash_table.h"
+#include "testing/num_testing_hash_table.h"
+#include "testing/strings_testing_hash_table.h"
+#include "working_with_text/working_with_text.h"
 
 const int   HASH_TABLE_SIZE = 50;
 const char* PROCESSED_FILE_NAME = "processed_file.txt";

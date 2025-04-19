@@ -5,7 +5,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#include "list.h"
+#include "../list/list.h"
+
 
 
 typedef struct Hash_Table Hash_Table;
