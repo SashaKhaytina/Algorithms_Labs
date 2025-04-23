@@ -8,13 +8,21 @@
 #include "../common.h"
 
 
-#ifdef TEST_HASH_TABLE_WITH_OPEN_ADDR 
+#ifdef TEST_HASH_TABLE_WITH_OPEN_ADDR // FIXME:
 // typedef struct Node_Hash_Table Node_Hash_Table;
 // struct Node_Hash_Table
 // {
 //     Elem_t value;            /* Array with linked lists (there are elem-s with same h(elem) in list) */
 //     size_t load_factor;      /* Size of Hash_Table (len(array)) */
 // };
+
+
+enum
+{
+    INSERT, 
+    DELETE, 
+    FIND
+} typedef Place_used_method;
 
 
 typedef struct Hash_Table_Open_Addr Hash_Table_Open_Addr;
@@ -40,6 +48,6 @@ TestStatus hash_table_open_addr_resize(Hash_Table_Open_Addr* hash_table_open_add
 void dump_hash_table_open_addr(Hash_Table_Open_Addr* hash_table);
 
 size_t hash_function(Elem_t element); 
-#endif
+#endif // FIXME:
 
 #endif
