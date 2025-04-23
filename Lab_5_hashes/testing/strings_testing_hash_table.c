@@ -2,6 +2,8 @@
 
 #include <stdlib.h>
 
+#ifdef TEST_HASH_FUNCTION
+
 const int SIZE_RANDOM_WORD = 20;
 const size_t COUNT_TESTS_CYCLE = 1;
 
@@ -33,7 +35,7 @@ TestStatus str_test_hash_table(Hash_Table* hash_table, Text* words)
     return status;
 
     #else
-    return ERROR_MDOE;
+    return ERROR_MODE;
     #endif
 }
 
@@ -87,7 +89,7 @@ TestStatus str_fill_hash_table(Hash_Table* hash_table, Text* words)
     return status;
 
     #else
-    return ERROR_MDOE;
+    return ERROR_MODE;
     #endif
 }
 
@@ -132,6 +134,8 @@ TestStatus str_find_random_words_in_hash_table(Hash_Table* hash_table)
     return status;
 
     #else
-    return ERROR_MDOE;
+    return ERROR_MODE;
     #endif
 }
+
+#endif

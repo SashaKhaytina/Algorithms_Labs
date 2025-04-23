@@ -4,7 +4,7 @@
 #include <string.h>
 #include <math.h>
 
-
+#ifdef TEST_HASH_FUNCTION
 
 Hash_Table* hash_table_ctor(size_t size)
 {
@@ -23,7 +23,7 @@ Hash_Table* hash_table_ctor(size_t size)
     for (size_t i = 0; i < hash_table->size; i++)
     {
         List* current_list = &(hash_table->table[i]);
-        list_ctor(current_list);                        // тут не нули будут..? Sasha pohody shizy slovila
+        list_ctor(current_list);                        
     }
 
     return hash_table;
@@ -37,28 +37,6 @@ Hash_Table* hash_table_dtor(Hash_Table* hash_table)
     for (size_t i = 0; i < hash_table->size; i++)
     {
         list_dtor(&(hash_table->table[i]));
-
-        // No lose mem here?
-
-        /*
-        
-        [   | list |   |   | ] - table
-              |
-               ->[node] -> [node] -> [] -> ...
-        
-        */
-
-
-        /* NO, it is old version
-        
-        [   |   |   |   | ] - table
-              |
-              ->[list]  // но ее же никто не выделял. Все норм вроде
-                  |
-                  ->[node] -> [node] -> [] -> ...
-        
-        */
-
     }
     
     free(hash_table->table); 
@@ -161,3 +139,5 @@ void dump_hash_table(Hash_Table* hash_table)
         list_print(&(hash_table->table[i]));
     }
 }
+
+#endif

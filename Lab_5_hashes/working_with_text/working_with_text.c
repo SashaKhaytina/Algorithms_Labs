@@ -22,10 +22,10 @@ Text* get_elements(FILE* file) // Сань. nbit
 
     Text* struct_with_words = (Text*) calloc(1, sizeof(Text));
 
+    #ifndef TESTNUM // TESTSTR
     struct_with_words->words = (char**) calloc(len_text, sizeof(char*));
     struct_with_words->count_words = 0;
     
-
     char elem[MAX_WORD_SIZE]; 
     char* current_text = text;
     while(sscanf(current_text, "%s", elem) == 1) 
@@ -42,6 +42,31 @@ Text* get_elements(FILE* file) // Сань. nbit
     }
 
     struct_with_words->words = realloc(struct_with_words->words, struct_with_words->count_words * sizeof(char*)); // for save size array
+
+    #else // TESTNUM
+    struct_with_words->words = (int*) calloc(len_text, sizeof(int));
+    struct_with_words->count_words = 0;
+    
+    char* current_text = text;
+    Elem_t elem = 0;
+    while(sscanf(current_text, "%d", &elem) == 1) 
+    {
+        struct_with_words->words[struct_with_words->count_words++] = elem;
+
+        while(elem >= 10)
+        {
+            current_text++;
+            elem /= 10;
+        }
+        current_text++;
+        
+        
+        while (*current_text != '\0' && isspace(*current_text)) current_text++; // skip spaces
+    }
+
+    struct_with_words->words = realloc(struct_with_words->words, struct_with_words->count_words * sizeof(int));
+
+    #endif
 
     free(text);
 

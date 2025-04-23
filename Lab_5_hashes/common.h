@@ -33,7 +33,9 @@ enum
     DELETE_STACK_WITHOUT_THIS_ELEMENT = 1 << 1,     /*!< Delete elem, whose not in the Hash table. */
     CALLOC_NODE_ERROR = 1 << 2,                     /*!< Error memory allocation when create node for list. */
     ERROR_NULL_POINTER = 1 << 3,                    /*!< Pointer is NULL */
-    ERROR_MODE = 1 << 4
+    ERROR_MODE = 1 << 4,
+    ERROR_RESIZE_DOWN = 1 << 5,
+    REALLOC_RESIZE_ERROR = 1 << 6,
 
     // ERROR_CTOR = 1 << 1,                         /*!< Error memory allocation. */
     // ERROR_OPEN_FILE = 1 << 5,                    /*!< Error open file. */
@@ -42,10 +44,21 @@ enum
 } typedef TestStatus;
 
 
+// enum
+// {
+//     LIST,
+//     OPEN_ADDR
+// } typedef HashTableType;
+
+
 typedef struct Text Text;
 struct Text 
 {
+    #ifndef TESTNUM
     char** words;
+    #else
+    int* words;
+    #endif
     size_t count_words;
 };
 

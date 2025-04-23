@@ -3,11 +3,13 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <malloc.h>
+#include <time.h>
 
 const char*  RETURN_FILE_NAME  = "processed_file.txt";
 const int    SIZE_RANDOM_WORD  = 20;
-const size_t COUNT_TESTS_CYCLE = 1000000;
-const int    MAX_RAND          = 1000;
+// const size_t COUNT_TESTS_CYCLE = 1000000;
+const size_t COUNT_TESTS_CYCLE = 100;
+const int    MAX_RAND          = 100;
 
 void create_new_text(FILE* file);
 
@@ -17,6 +19,7 @@ int main(int argc, char* argv[])
 
     FILE* output_file = fopen(RETURN_FILE_NAME, "w");
 
+    srand(time(NULL));
     create_new_text(output_file);
 
     return 0;

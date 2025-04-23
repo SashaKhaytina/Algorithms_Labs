@@ -3,6 +3,8 @@
 
 #include "../hash_table/hash_table.h"
 
+#ifdef TEST_HASH_FUNCTION
+
 /*!
  * \brief Print execution statistic to cmd
  *
@@ -31,7 +33,7 @@ TestStatus str_fill_hash_table(Hash_Table* hash_table, Text* words);
  */
 TestStatus str_find_random_words_in_hash_table(Hash_Table* hash_table);
 
-
+#endif
 
 
 #endif
