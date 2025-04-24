@@ -140,7 +140,7 @@ TestStatus hash_table_insert(Hash_Table* hash_table, Elem_t element)
     status = list_push(&(hash_table->table[ind]), element);
     hash_table->count_elements++;
 
-    // if (load_factor(hash_table) > MAX_LOAD_FACTOR) hash_table_resize(hash_table, hash_table->size * RESIZE_COEFF); // FIXME: resize() 
+    if (load_factor(hash_table) > MAX_LOAD_FACTOR) hash_table_resize(hash_table, hash_table->size * RESIZE_COEFF); // FIXME: resize() 
 
     return status;
 }

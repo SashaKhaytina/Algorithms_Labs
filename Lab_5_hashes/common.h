@@ -74,7 +74,7 @@ struct Text
 };
 
 
-static const double MAX_LOAD_FACTOR = 0.8;
+static const double MAX_LOAD_FACTOR = 0.2;
 static const double RESIZE_COEFF = 1.5;
 
 #endif

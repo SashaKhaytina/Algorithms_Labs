@@ -10,7 +10,9 @@
 #include "testing/strings_testing_hash_table.h"
 #include "working_with_text/working_with_text.h"
 
-const int   HASH_TABLE_SIZE = 2048;
+// const int   HASH_TABLE_SIZE = 2048;
+const int   HASH_TABLE_SIZE = 2;
+
 const char* PROCESSED_FILE_NAME = "processed_file.txt";
 
 
@@ -91,7 +93,8 @@ int main()
 
     Hash_Table_Open_Addr* hash_table_open_addr = hash_table_open_addr_ctor(HASH_TABLE_SIZE);
 
-    num_test_hash_table_open_addr(hash_table_open_addr, words);
+    COUNT_TIME(num_test_hash_table_open_addr(hash_table_open_addr, words);)
+    PRINTF_GREEN("TEST_OPEN_ADDR Time: "); printf("%f\n", average_time);
 
     hash_table_open_addr_dtor(hash_table_open_addr);
 

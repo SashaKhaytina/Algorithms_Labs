@@ -16,13 +16,17 @@ void create_new_text(FILE* file);
 
 int main(int argc, char* argv[])
 {
-
     FILE* output_file = fopen(RETURN_FILE_NAME, "w");
 
     srand(time(NULL));
+    #ifndef RAND_OPERATION_LINE
     create_new_text(output_file);
+    #else
+    create_random_line_new_text(output_file);
+    #endif
 
     return 0;
+
 
 }
 
@@ -59,4 +63,21 @@ void create_new_text(FILE* file)
 
     return ;
     #endif
+}
+
+
+void create_random_line_new_text(FILE* file)
+{
+    for (int i = 0; i < COUNT_TESTS_CYCLE; i++)
+    {
+        int operation = rand() % 3;
+        char op = 0;
+
+        if (operation == 0) op = '+';
+        else if (operation == 1) op = '-';
+        else op = '?';
+        int element = rand() % (MAX_RAND + 1);
+
+        fprintf(file, "%c%d\n", op, element);
+    }
 }
