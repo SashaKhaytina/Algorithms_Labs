@@ -258,7 +258,6 @@ TestStatus hash_table_resize(Hash_Table* hash_table, size_t new_size)
 
     if (realloced_hash_table == NULL) return REALLOC_RESIZE_ERROR;
 
-    // Выделим массив со всеми элементами
     Elem_t* template_elems = (Elem_t*) calloc(hash_table->count_elements, sizeof(Elem_t));
     int counter = 0;
 

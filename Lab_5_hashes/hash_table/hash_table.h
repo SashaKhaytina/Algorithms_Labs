@@ -8,7 +8,7 @@
 #include "../list/list.h"
 
 
-#ifdef TEST_HASH_FUNCTION // FIXME:
+#ifdef TEST_HASH_FUNCTION
 typedef struct Hash_Table Hash_Table;
 struct Hash_Table
 {
@@ -32,6 +32,6 @@ void graphic_dump_hash_table(FILE* file, Hash_Table* hash_table);
 
 
 size_t hash_function(Elem_t element);   /* return ind in hash table */
-#endif // FIXME:
+#endif 
 
 #endif
