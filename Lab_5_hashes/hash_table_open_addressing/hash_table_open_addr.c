@@ -5,7 +5,7 @@
 #include <math.h>
 
 
-#ifdef TEST_HASH_TABLE_WITH_OPEN_ADDR // FIXME:
+#ifdef TEST_HASH_TABLE_WITH_OPEN_ADDR 
 
 
 static double load_factor(Hash_Table_Open_Addr* hash_table_open_addr);
@@ -17,8 +17,8 @@ static bool square_mode(Hash_Table_Open_Addr* hash_table_open_addr, size_t* ind,
 
 
 const Elem_t POISON = -1;
-const double MAX_LOAD_FACTOR = 0.8;
-const double RESIZE_COEFF = 1.5;
+// const double MAX_LOAD_FACTOR = 0.8;
+// const double RESIZE_COEFF = 1.5;
 
 
 Hash_Table_Open_Addr* hash_table_open_addr_ctor(size_t size)
@@ -63,45 +63,7 @@ TestStatus hash_table_open_addr_insert(Hash_Table_Open_Addr* hash_table_open_add
 
     
     size_t ind = hash_function(element) % hash_table_open_addr->size;
-    // if (hash_table_open_addr->table[ind % hash_table_open_addr->size] != element) // FIXME: Бред. Тут надо проверять не нашлось ли в таблице
-    // // if (!hash_table_open_addr_find(hash_table_open_addr, element))
-    // {
-    //     hash_table_open_addr->count_elements++;
-    //     #ifdef DEBUG
-    //     printf("load factor - %f\n", load_factor(hash_table_open_addr));
-    //     printf("OLD SIZE - %ld\n", hash_table_open_addr->size);
-    //     #endif
-        
-    //     if(load_factor(hash_table_open_addr) > MAX_LOAD_FACTOR) status = hash_table_open_addr_resize(hash_table_open_addr, (size_t)(hash_table_open_addr->size * RESIZE_COEFF));  
-        
-    //     #ifdef DEBUG
-    //     printf("NEW SIZE - %ld\n", hash_table_open_addr->size);
-    //     #endif
 
-
-    // }
-    // CHECK_STATUS_OK(status)
-
-    // while (hash_table_open_addr->table[ind % hash_table_open_addr->size] != POISON)
-    // {
-    //     if (hash_table_open_addr->table[ind % hash_table_open_addr->size] == element) return OK;
-
-    //     ind++;
-    //     if (ind >= 2 * hash_table_open_addr->size)
-    //     {
-    //         #ifdef DEBUG
-    //         printf("OLD SIZE - %ld, n - %ld\n", hash_table_open_addr->size, hash_table_open_addr->count_elements);
-    //         #endif
-
-    //         status = hash_table_open_addr_resize(hash_table_open_addr, (size_t)(int)(hash_table_open_addr->size * RESIZE_COEFF));
-    //         CHECK_STATUS_OK(status)
-    //         #ifdef DEBUG
-    //         printf("NEW SIZE - %ld, n - %ld\n", hash_table_open_addr->size,  hash_table_open_addr->count_elements);
-    //         #endif
-
-    //         size_t ind = hash_function(element) % hash_table_open_addr->size;
-    //     }
-    // }
     #ifdef HASH_TABLE_WITH_OPEN_ADDR_LINE
     if (!line_mode(hash_table_open_addr, &ind, element, INSERT)) return ERROR_INCLUDE_IN_HASH_TABLE; // вернет true если нашел куда вставить ИЛИ ЕСЛИ В ТАБЛИЦЕ УЖЕ ЕСТЬ
     #else // #elif HASH_TABLE_WITH_OPEN_ADDR_SQUARE
@@ -126,20 +88,11 @@ TestStatus hash_table_open_addr_delete(Hash_Table_Open_Addr* hash_table_open_add
     
     size_t ind = hash_function(element) % hash_table_open_addr->size;
 
-    // while (hash_table_open_addr->table[ind % hash_table_open_addr->size] != element && hash_table_open_addr->table[ind % hash_table_open_addr->size] != POISON)
-    // {
-    //     ind++;
-    //     if (ind >= 2 * hash_table_open_addr->size) return DELETE_STACK_WITHOUT_THIS_ELEMENT;
-    // }
     #ifdef HASH_TABLE_WITH_OPEN_ADDR_LINE
     if (!line_mode(hash_table_open_addr, &ind, element, DELETE)) return DELETE_STACK_WITHOUT_THIS_ELEMENT; // вернет true если нашел куда вставить ИЛИ ЕСЛИ В ТАБЛИЦЕ УЖЕ ЕСТЬ
     #else // #elif HASH_TABLE_WITH_OPEN_ADDR_SQUARE
     if (!square_mode(hash_table_open_addr, &ind, element, DELETE)) return DELETE_STACK_WITHOUT_THIS_ELEMENT;
     #endif
-
-    // if (hash_table_open_addr->table[ind % hash_table_open_addr->size] != element || hash_table_open_addr->table[ind % hash_table_open_addr->size] == POISON) return DELETE_STACK_WITHOUT_THIS_ELEMENT;
-    // else hash_table_open_addr->table[ind % hash_table_open_addr->size] = POISON;
-    // hash_table_open_addr->count_elements--;
 
     hash_table_open_addr->table[ind % hash_table_open_addr->size] = POISON;
     hash_table_open_addr->count_elements--;
@@ -156,14 +109,6 @@ bool hash_table_open_addr_find(Hash_Table_Open_Addr* hash_table_open_addr, Elem_
     
     size_t ind = hash_function(element) % hash_table_open_addr->size;
 
-
-    // while (hash_table_open_addr->table[ind % hash_table_open_addr->size] != element && hash_table_open_addr->table[ind % hash_table_open_addr->size] != POISON)
-    // {
-    //     ind++;
-    //     if (ind >= 2 * hash_table_open_addr->size) return false;
-    // }
-
-    // return (hash_table_open_addr->table[ind % hash_table_open_addr->size] == element);
     #ifdef HASH_TABLE_WITH_OPEN_ADDR_LINE
     return line_mode(hash_table_open_addr, &ind, element, FIND);
     #else // #elif HASH_TABLE_WITH_OPEN_ADDR_SQUARE
@@ -240,7 +185,6 @@ static bool line_mode(Hash_Table_Open_Addr* hash_table_open_addr, size_t* ind, E
 
 static bool square_mode(Hash_Table_Open_Addr* hash_table_open_addr, size_t* ind, Elem_t element, Place_used_method place)
 {
-    // while (hash_table_open_addr->table[ind % hash_table_open_addr->size] != element && hash_table_open_addr->table[ind % hash_table_open_addr->size] != POISON)
     for (size_t i = 1; i <= hash_table_open_addr->size; i++)
     {
         if (i == hash_table_open_addr->size && place == INSERT)
@@ -297,4 +241,4 @@ static double load_factor(Hash_Table_Open_Addr* hash_table_open_addr)
 }
 
 
-#endif // FIXME:
+#endif 

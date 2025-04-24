@@ -8,12 +8,13 @@
 #include "../list/list.h"
 
 
-#ifdef TEST_HASH_FUNCTION
+#ifdef TEST_HASH_FUNCTION // FIXME:
 typedef struct Hash_Table Hash_Table;
 struct Hash_Table
 {
     List* table;        /* Array with linked lists (there are elem-s with same h(elem) in list) */
     size_t size;        /* Size of Hash_Table (len(array)) */
+    size_t count_elements;
 };
 
 
@@ -23,10 +24,14 @@ Hash_Table* hash_table_dtor(Hash_Table* hash_table);
 TestStatus hash_table_insert(Hash_Table* hash_table, Elem_t element);
 TestStatus hash_table_delete(Hash_Table* hash_table, Elem_t element);
 bool       hash_table_find  (Hash_Table* hash_table, Elem_t element);
+TestStatus hash_table_resize(Hash_Table* hash_table, size_t new_size);
 
-void dump_hash_table(Hash_Table* hash_table);
+
+void dump_hash_table        (Hash_Table* hash_table);
+void graphic_dump_hash_table(FILE* file, Hash_Table* hash_table);
+
 
 size_t hash_function(Elem_t element);   /* return ind in hash table */
-#endif
+#endif // FIXME:
 
 #endif

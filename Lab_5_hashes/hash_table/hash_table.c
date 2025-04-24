@@ -5,7 +5,9 @@
 #include <stdint.h>
 #include <math.h>
 
-#ifdef TEST_HASH_FUNCTION
+#ifdef TEST_HASH_FUNCTION // FIXME:
+
+static double load_factor(Hash_Table* hash_table);
 
 
 #ifdef TESTSTRCRC32
@@ -95,7 +97,8 @@ Hash_Table* hash_table_ctor(size_t size)
         return NULL;
     }
 
-    hash_table->size = size;
+    hash_table->size          = size;
+    hash_table->count_elements = 0;
 
     for (size_t i = 0; i < hash_table->size; i++)
     {
@@ -133,8 +136,11 @@ TestStatus hash_table_insert(Hash_Table* hash_table, Elem_t element)
     
     size_t ind = hash_function(element) % hash_table->size;
 
-    if (list_find(hash_table->table[ind], element)) return OK; // no same elements
+    if (list_find(hash_table->table[ind], element)) return OK;
     status = list_push(&(hash_table->table[ind]), element);
+    hash_table->count_elements++;
+
+    // if (load_factor(hash_table) > MAX_LOAD_FACTOR) hash_table_resize(hash_table, hash_table->size * RESIZE_COEFF); // FIXME: resize() 
 
     return status;
 }
@@ -149,6 +155,7 @@ TestStatus hash_table_delete(Hash_Table* hash_table, Elem_t element)
     size_t ind = hash_function(element) % hash_table->size;
 
     status = list_delete(&(hash_table->table[ind]), element);
+    hash_table->count_elements--; // FIXME: добавить обработку отсутствия эелемента в таблице
 
     return status;
 }
@@ -166,10 +173,32 @@ bool hash_table_find(Hash_Table* hash_table, Elem_t element)
 }
 
 #ifdef TESTNUM
+#ifdef TESTNUMMOD
 size_t hash_function(Elem_t element) // ее использовать по модулю длины хеш-таблицы
 {
     return (size_t) element;    // ┐(￣ヘ￣)┌  <(Good hash-function)
 }
+#elif TESTNUMBIT
+size_t hash_function(Elem_t element)
+{
+    element = ((element >> 16) ^ element) * 0x45d9f3b;
+    element = ((element >> 16) ^ element) * 0x45d9f3b;
+    element = (element >> 16) ^ element;
+
+    return element;
+}
+#else //#elif TESTNUMKNYT
+size_t hash_function(Elem_t element) // Method Knyta
+{
+    double A = ((sqrt(5) - 1) / 2);
+    int p = 12;
+    uint32_t m = 1 << p;  // m = 2^p
+    double num = element * A;
+    double fractional = num - (uint32_t)num;  // Дробная часть
+    return (uint32_t)(m * fractional);
+}
+#endif
+
 #elif TESTSTRLEN
 size_t hash_function(Elem_t element)
 {
@@ -216,6 +245,56 @@ size_t hash_function(Elem_t element)
 }
 #endif
 
+
+
+TestStatus hash_table_resize(Hash_Table* hash_table, size_t new_size) 
+{
+    CHECK_SOME_IS_NULL(ERROR_NULL_POINTER, hash_table)
+    TestStatus status = OK;
+
+    if (new_size < hash_table->size) return ERROR_RESIZE_DOWN;
+
+    List* realloced_hash_table = (List*) realloc(hash_table->table, new_size * sizeof(List));
+
+    if (realloced_hash_table == NULL) return REALLOC_RESIZE_ERROR;
+
+    // Выделим массив со всеми элементами
+    Elem_t* template_elems = (Elem_t*) calloc(hash_table->count_elements, sizeof(Elem_t));
+    int counter = 0;
+
+    hash_table->table          = realloced_hash_table;
+    size_t old_size = hash_table->size;
+    hash_table->size           = new_size;
+    hash_table->count_elements = 0;
+
+
+    for (size_t list_ind = 0; list_ind < hash_table->size; list_ind++)
+    {
+        Node* current_node = hash_table->table[list_ind].root;
+
+        while (current_node != NULL)
+        {
+            template_elems[counter++] = current_node->value;
+            Node* next_node = current_node->next;
+
+            free(current_node); current_node = NULL;
+            hash_table->table[list_ind].root = next_node;
+            current_node = next_node;
+        }
+    }
+
+    for (int i = 0; i < counter; i++)
+    {
+        hash_table_insert(hash_table, template_elems[i]);
+    }
+
+    free(template_elems);
+
+    return status;
+    return OK;
+}
+
+
 // _______________ DUMP __________________
 
 void dump_hash_table(Hash_Table* hash_table)
@@ -231,4 +310,24 @@ void dump_hash_table(Hash_Table* hash_table)
     }
 }
 
-#endif
+void graphic_dump_hash_table(FILE* file, Hash_Table* hash_table)
+{
+    CHECK_SOME_IS_NULL(, hash_table, file)
+
+    for (size_t i = 0; i < hash_table->size; i++)
+    {
+        fprintf(file, "%ld ", i);                           // значение хеш функции
+        fprintf(file, "%ld\n", hash_table->table[i].size);  // количество коллизий. 
+    }
+}
+
+
+
+static double load_factor(Hash_Table* hash_table)
+{
+    double load_factor = ((double) hash_table->count_elements) / ((double)hash_table->size);
+    return load_factor;
+}
+
+
+#endif // FIXME:

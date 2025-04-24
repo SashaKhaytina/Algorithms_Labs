@@ -7,9 +7,9 @@
 
 const char*  RETURN_FILE_NAME  = "processed_file.txt";
 const int    SIZE_RANDOM_WORD  = 20;
-// const size_t COUNT_TESTS_CYCLE = 1000000;
-const size_t COUNT_TESTS_CYCLE = 100;
-const int    MAX_RAND          = 100;
+const size_t COUNT_TESTS_CYCLE = 1000000;
+// const size_t COUNT_TESTS_CYCLE = 100;
+const int    MAX_RAND          = 1000;
 
 void create_new_text(FILE* file);
 
