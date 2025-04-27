@@ -9,7 +9,6 @@ enum TestStatus dynamic_array_ctor(struct DynamicArray* dyn_stack, size_t size, 
 {
     CHECK_SOME_IS_NULL(ERROR_STACK_IS_NULL, dyn_stack)
     enum TestStatus status = OK;
-    // printf("%d", __LINE__);
     
 
     dyn_stack->array = (ElemArr_t*) calloc(size, element_size);

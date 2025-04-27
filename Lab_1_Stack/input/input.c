@@ -5,7 +5,7 @@
 #include "../dynamic_array/dynamic_array.h"
 #include "../singly_linked_list/list.h"
 
-const int MAX_COMMAND_SIZE = 10;
+const int MAX_COMMAND_SIZE = 11;
 
 
 enum TestStatus run_test(FILE* test_file, enum ModeStack ModeStack, void* stack)

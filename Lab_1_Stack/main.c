@@ -34,8 +34,6 @@ int main(int argc, char* argv[])
             fclose(test_file);
         }
 
-        // PRINTF_CYAN("DYNAMIC ARRAY:");
-        // PRINT_TIME
         print_test_time(DYNAMIC_STACK, argv[1], average_time, NUM_TESTS);
     }
     else
@@ -58,17 +56,8 @@ int main(int argc, char* argv[])
             fclose(test_file);
         }
 
-        // PRINTF_CYAN("LIST:");
-        // PRINT_TIME
         print_test_time(LIST, argv[1], average_time, NUM_TESTS);
     }
 
 }
 
-
-// void print_test_time(enum ModeStack mode, char* file_test_name, double average_time, int num_test)
-// {
-//     if (mode == DYNAMIC_STACK) PRINTF_CYAN("DYNAMIC ARRAY:");
-//     else                       PRINTF_CYAN("LIST:");
-//     PRINTF_GREEN(" time of %s test: %g millisecond\n", file_test_name, average_time/num_test);
-// }

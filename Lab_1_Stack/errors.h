@@ -29,26 +29,9 @@ enum TestStatus
     ERROR_OPEN_FILE = 1 << 6,           /*!< Error open file. */
     ERROR_STACK_IS_NULL = 1 << 7,       /*!< Stack pointer is NULL */
     ERROR_NULL_POINTER = 1 << 8,        /*!< Pointer is NULL */
-    // ERROR_MODE_STACK = 1 << 7,       
 
     ERROR_COMMAND_IN_TEST = 1 << 9,     /*!< Erroк in test file (command is not correct). */
-    // ERROR = 1 << 9                   /*!< Default error */
 };
-
-
-// enum TestStatus CHECK_SOME_IS_NULL(enum TestStatus status, ...)
-// {
-//     va_list args_list;
-//     va_start(args_list, status);
-
-//     ElemArr_t* arg = va_arg(args_list, ElemArr_t*);
-
-//     while (!arg)
-//     {
-        
-//     }
-
-// }
 
 
 
