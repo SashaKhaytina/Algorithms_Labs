@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 
-void shell_sort(int* arr, size_t n);
+void shell_sort(int* arr, size_t arr_size);
 
 #endif

@@ -19,6 +19,5 @@ int main(int argc, char* argv[])
 {
     srand(atoi(argv[2]));
     int size = atoi(argv[1]);
-    // uint32_t max_num = atoi(argv[2]);
     generation_test(size, MAX_RAND);
 }

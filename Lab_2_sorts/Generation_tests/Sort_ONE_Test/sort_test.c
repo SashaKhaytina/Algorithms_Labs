@@ -1,9 +1,9 @@
 #include "sort_test.h"
 
-#include <stdint.h>
 #include <stdlib.h>
+#include <stdint.h>
 
-int compare(const void* a, const void* b);
+int compare(const void* elem1, const void* elem2);
 
 
 void sort_test(FILE* input, int size)
@@ -14,7 +14,6 @@ void sort_test(FILE* input, int size)
     {
         uint32_t num = 0;
         fscanf(input, "%d", &num);
-        // printf("%d - num read\n", num);
         array[i] = num;
     }
 
@@ -27,9 +26,9 @@ void sort_test(FILE* input, int size)
 }
 
 
-int compare(const void* a, const void* b)
+int compare(const void* elem1, const void* elem2)
 {
-    return (*((uint32_t*)a) - *((uint32_t*)b));
+    return (*((uint32_t*)elem1) - *((uint32_t*)elem2));
 }
 
 

@@ -11,9 +11,9 @@ int hoar_partition(int* arr, int low, int high);
 
 
 
-void quick_lomuto_sort(int* arr, size_t n)
+void quick_lomuto_sort(int* arr, size_t arr_size)
 {
-    quick_lomuto_sort_recur(arr, 0, n - 1, lomuto_partition);
+    quick_lomuto_sort_recur(arr, 0, arr_size - 1, lomuto_partition);
 }
 
 void quick_lomuto_sort_recur(int* arr, int low, int high, int (*partition)(int*, int, int))
@@ -26,7 +26,7 @@ void quick_lomuto_sort_recur(int* arr, int low, int high, int (*partition)(int*,
     }
 }
 
-int lomuto_partition(int* arr, int low, int high) // это должно скидывать по 2 указателям (справа больше pivot, слева <)
+int lomuto_partition(int* arr, int low, int high) 
 {
     int pivot = arr[(low + high) / 2];
 
@@ -61,9 +61,9 @@ int lomuto_partition(int* arr, int low, int high) // это должно ски�
 
 
 
-void quick_hoar_sort(int* arr, size_t n)
+void quick_hoar_sort(int* arr, size_t arr_size)
 {
-    quick_hoar_sort_recur(arr, 0, n - 1, hoar_partition);
+    quick_hoar_sort_recur(arr, 0, arr_size - 1, hoar_partition);
 }
 
 void quick_hoar_sort_recur(int* arr, int low, int high, int (*partition)(int*, int, int))

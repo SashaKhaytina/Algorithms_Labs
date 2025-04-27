@@ -3,14 +3,14 @@
 void swap_(int* arr, size_t ind_1, size_t ind_2);
 
 
-void selection_sort(int* arr, size_t n)
+void selection_sort(int* arr, size_t arr_size)
 {
-    for (size_t i = 0; i < n; i++)
+    for (size_t i = 0; i < arr_size; i++)
     {
         size_t min_ind = i;
         size_t cur_min = arr[min_ind];
 
-        for (int j = i + 1; j < n; j++)
+        for (int j = i + 1; j < arr_size; j++)
         {
             if (arr[j] < cur_min)
             {

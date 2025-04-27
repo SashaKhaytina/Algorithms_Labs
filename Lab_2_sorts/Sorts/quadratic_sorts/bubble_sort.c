@@ -3,12 +3,12 @@
 void swap(int* arr, size_t ind_1, size_t ind_2);
 
 
-void bouble_sort(int* arr, size_t n)
+void bouble_sort(int* arr, size_t arr_size)
 {
-    for (size_t i = 0; i < n; i++)
+    for (size_t i = 0; i < arr_size; i++)
     {
         int difference = 0;
-        for (size_t j = 0; j < n - i - 1; j++)
+        for (size_t j = 0; j < arr_size - i - 1; j++)
         {
             if (arr[j] > arr[j + 1]) 
             {

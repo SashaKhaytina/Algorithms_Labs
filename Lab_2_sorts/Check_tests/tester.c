@@ -1,22 +1,22 @@
 #include "testing.h"
 
-#include <string.h>
-#include <malloc.h>
 #include <assert.h>
-#include <sys/time.h>
+#include <malloc.h>
 #include <time.h>
+#include <string.h>
+#include <sys/time.h>
 
 #include "../timer.h"
 
-const int MAX_WAY_SIZE = 200;
-const int MAX_TEST_SIZE = 1000000;
-const char* GRAPH_TABLE = "Graphic/quick_hoar_sort.txt";
+const int   MAX_WAY_SIZE  = 200;
+const int   MAX_TEST_SIZE = 1000000;
+const char* GRAPH_TABLE   = "Graphic/quick_hoar_sort.txt";
 
 
 
 int* get_test(FILE* f_input, int test_size);
 void write_test_answer_and_compare(FILE* f_out, FILE* f_cmp, int* array, int test_size);
-char* join_file_name(char* file_in, int test_size, int j, enum FileType type);
+char* join_file_name(char* file_in, int test_size, int num_test, enum FileType type);
 void fill_num_array(int* array, int test_size, char* text, int len_text);
 size_t size_file(FILE* file);
 
@@ -46,7 +46,6 @@ double* test_sort(char* tests_in_way, char* tests_output_way, void (*sort)(int* 
 
 
             // TEST
-            // TIME!
             COUNT_TIME(sort(array, test_size);)
 
 
@@ -56,7 +55,7 @@ double* test_sort(char* tests_in_way, char* tests_output_way, void (*sort)(int* 
             FILE* f_out = fopen(file_out, "w");
             FILE* f_cmp = fopen(file_in_cmp, "r");
 
-            write_test_answer_and_compare(f_out, f_cmp, array, test_size); // in file
+            write_test_answer_and_compare(f_out, f_cmp, array, test_size); 
             
             fclose(f_out);
             fclose(f_cmp);
@@ -109,14 +108,14 @@ void write_test_answer_and_compare(FILE* f_out, FILE* f_cmp, int* array, int tes
     }
 }
 
-char* join_file_name(char* file_in, int test_size, int j, enum FileType type)
+char* join_file_name(char* file_in, int test_size, int num_test, enum FileType type)
 {
 
     char* file_name = (char*)calloc(MAX_WAY_SIZE, sizeof(char));
     assert(file_name);
 
     snprintf(file_name, MAX_WAY_SIZE, "%s/%d_%d%s", 
-             file_in, test_size, j, 
+             file_in, test_size, num_test, 
              (type == IN) ? ".in" : ".out");
 
     return file_name;
