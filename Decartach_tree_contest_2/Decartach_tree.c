@@ -6,7 +6,8 @@
 #include <malloc.h>
 
 
-const int MAX_RAND_PRIORITY = 1000000;
+const int MAX_RAND_PRIORITY       = 1000000;
+const int MAX_OPERATION_NAME_SIZE = 20;
 
 typedef int Elem_t;
 
@@ -42,7 +43,6 @@ void change_size(Node* node)
 }
 
 
-// bool  decart_tree_find  (Node* current_node, Elem_t value);
 Node* decart_tree_find    (Node* current_node, Elem_t value);
 void  decart_tree_insert  (Decart_Tree* tree, Elem_t value);
 void  decart_tree_delete  (Decart_Tree* tree, Elem_t value);
@@ -61,12 +61,12 @@ void free_decart_tree     (Node* current_node);
 
 int main()
 {
-    char operation[20] = {};
+    char operation[MAX_OPERATION_NAME_SIZE] = {};
     Elem_t element = 0;
 
     Decart_Tree tree = {.root = NULL};
 
-    while (scanf("%s", operation) != EOF)
+    while (scanf("%19s", operation) != EOF)
     {
         scanf("%d", &element);
 
@@ -112,7 +112,8 @@ int main()
     free_decart_tree(tree.root);
 }
 
-// bool decart_tree_find(Node* current_node, Elem_t value)
+
+
 Node* decart_tree_find(Node* current_node, Elem_t value)
 
 {
@@ -139,7 +140,6 @@ void decart_tree_insert(Decart_Tree* tree, Elem_t value)
 
     tree->root = decart_tree_merge(decart_tree_merge(left_tree_return, create_new_node(value)), right_tree_return);
 }
-
 
 
 void decart_tree_split(Node* current_root, Node** left_tree_return, Node** right_tree_return, Elem_t value)
@@ -173,8 +173,6 @@ void decart_tree_split(Node* current_root, Node** left_tree_return, Node** right
 }
 
 
-
-
 Node* decart_tree_merge(Node* left_subtree, Node* right_subtree)
 {
     if (right_subtree == NULL) return left_subtree;
@@ -194,48 +192,6 @@ Node* decart_tree_merge(Node* left_subtree, Node* right_subtree)
         return left_subtree;
     }
 }
-
-
-
-Node* create_new_node(Elem_t value)
-{
-    Node* new_node = (Node*) calloc(1, sizeof(Node));
-
-    new_node->left     = NULL;
-    new_node->right    = NULL;
-    new_node->value    = value;
-    new_node->priority = rand() % MAX_RAND_PRIORITY;
-    new_node->size_subtree     = 1;
-
-    return new_node;
-}
-
-
-
-
-// void decart_tree_delete(Decart_Tree* tree, Elem_t value)
-// {
-//     if (tree == NULL) return ;
-
-//     Node* deleted_node = decart_tree_find(tree->root, value);
-//     if (deleted_node == NULL) return;
-
-//     Node* new_subtree = decart_tree_merge(deleted_node->left, deleted_node->right);
-
-//     if (new_subtree == NULL)
-//     {
-//         free(deleted_node);
-//         return ;
-//     }
-
-//     deleted_node->left     = new_subtree->left;
-//     deleted_node->right    = new_subtree->right;
-//     deleted_node->value    = new_subtree->value;
-//     deleted_node->priority = new_subtree->priority;
-//     deleted_node->size_subtree     = new_subtree->size_subtree;
-
-//     free(new_subtree);
-// }
 
 
 void decart_tree_delete(Decart_Tree* tree, Elem_t value) 
@@ -326,6 +282,20 @@ Node* k_ordinal_statistics(Node* current_node, int k)
 }
 
 
+
+Node* create_new_node(Elem_t value)
+{
+    Node* new_node = (Node*) calloc(1, sizeof(Node));
+    if (new_node == NULL) return NULL;
+
+    new_node->left     = NULL;
+    new_node->right    = NULL;
+    new_node->value    = value;
+    new_node->priority = rand() % MAX_RAND_PRIORITY;
+    new_node->size_subtree     = 1;
+
+    return new_node;
+}
 
 
 void free_decart_tree(Node* current_node)
