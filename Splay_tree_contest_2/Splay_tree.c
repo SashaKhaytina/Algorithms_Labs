@@ -45,6 +45,12 @@ Node*     splay_tree_remove(Node *head, char *elem);
 int compare_elements(Node* node, char* str);
 
 
+int  get_data          (int n, int m, Node* arr_first_second, Node* arr_second_first, Node** splay_tree_first, Node** splay_tree_second);
+void request_processing(Node* splay_tree_first, Node* splay_tree_second);
+void free_memory       (int n, Node* arr_first_second, Node* arr_second_first);
+
+
+
 int main()
 {
   Node* splay_tree_first = NULL;
@@ -58,67 +64,18 @@ int main()
   Node* arr_first_second = (Node*) calloc(n, sizeof(Node));
   Node* arr_second_first = (Node*) calloc(n, sizeof(Node));
 
-  if (arr_first_second == NULL || arr_second_first == NULL) return 0;
+  if (arr_first_second == NULL || arr_second_first == NULL) return 1;
 
 
+  if (get_data(n, m, arr_first_second, arr_second_first, &splay_tree_first, &splay_tree_second) == 1) return 1;
 
 
-  for(int i = 0; i < n; i++) 
-  {
-    char* first_strs  = (char*) calloc(1, sizeof(char) * MAX_STR_SIZE);
-    char* second_strs = (char*) calloc(1, sizeof(char) * MAX_STR_SIZE);
-
-    if (first_strs == NULL || second_strs == NULL) return 0;
-
-    scanf("%s %s", first_strs, second_strs);
-
-    arr_first_second[i].prev  = NULL; 
-    arr_first_second[i].left  = NULL; 
-    arr_first_second[i].right = NULL;
-    arr_first_second[i].first_value  = first_strs;
-    arr_first_second[i].second_value = second_strs;
-
-    arr_second_first[i].prev  = NULL; 
-    arr_second_first[i].left  = NULL; 
-    arr_second_first[i].right = NULL;
-    arr_second_first[i].first_value  = second_strs;
-    arr_second_first[i].second_value = first_strs;
-
-    splay_tree_second = splay_tree_insert(splay_tree_second, &arr_second_first[i]);
-    splay_tree_first = splay_tree_insert(splay_tree_first, &arr_first_second[i]);
-  }
+  request_processing(splay_tree_first, splay_tree_second);
 
 
-  scanf("%d", &m);
-
-  for(int i = 0; i < m; i++) 
-  {
-    char request[MAX_STR_SIZE] = {};
-    scanf("%s", request);
-
-    splay_tree_first =  splay_tree_find(splay_tree_first, request);
-    if (splay_tree_first && compare_elements(splay_tree_first, request) == 0) printf("%s\n", splay_tree_first->second_value);
-    else
-    {
-      splay_tree_second =  splay_tree_find(splay_tree_second, request);
-      if (splay_tree_second && compare_elements(splay_tree_second, request) == 0) printf("%s\n", splay_tree_second->second_value);
-      else printf("No same name in definition\n");
-    }
-
-  }
-
-  for (int i = 0; i < n; i++)
-  {
-    free(arr_first_second[i].first_value);
-    free(arr_first_second[i].second_value);
-  }
-  free(arr_first_second);
-  free(arr_second_first);
-
+  free_memory(n, arr_first_second, arr_second_first);
 
 }
-
-
 
 
 
@@ -219,45 +176,6 @@ Node* splay(Node* node)
 }
 
 
-// void zig(Node* needed_node)
-// {
-//   if (needed_node->prev->left == needed_node) right_turn(needed_node->prev);
-//   else left_turn(needed_node->prev);
-// }
-
-
-
-// void zig_zig(Node* needed_node)
-// {
-//   if (needed_node->prev->prev->left == needed_node->prev && needed_node->prev->left == needed_node) 
-//   {
-//     right_turn(needed_node->prev->prev);
-//     right_turn(needed_node->prev);
-//   } 
-//   else if (needed_node->prev->prev->right == needed_node->prev && needed_node->prev->right == needed_node) 
-//   {
-//     left_turn(needed_node->prev->prev);
-//     left_turn(needed_node->prev);
-//   }
-// }
-
-
-
-// void zig_zag(Node* needed_node)
-// {
-//   if (needed_node->prev->left == needed_node) 
-//   {
-//       right_turn(needed_node->prev);
-//       left_turn(needed_node->prev->prev);
-//   } else 
-//   {
-//       left_turn(needed_node->prev);
-//       right_turn(needed_node->prev->prev);
-//   }
-// }
-
-
-
 Node* splay_tree_find(Node* current_node, char *elem) {
     Node* last_valid = NULL;
     while (current_node != NULL) {
@@ -333,3 +251,69 @@ int compare_elements(Node* node, char* str)
   if (node != NULL) return strcmp(node->first_value, str);
 }
 
+
+
+int get_data(int n, int m, Node* arr_first_second, Node* arr_second_first, Node** splay_tree_first, Node** splay_tree_second)
+{
+
+  for(int i = 0; i < n; i++) 
+  {
+    char* first_strs  = (char*) calloc(1, sizeof(char) * MAX_STR_SIZE);
+    char* second_strs = (char*) calloc(1, sizeof(char) * MAX_STR_SIZE);
+
+    if (first_strs == NULL || second_strs == NULL) return 1;
+
+    scanf("%s %s", first_strs, second_strs);
+
+    arr_first_second[i].prev  = NULL; 
+    arr_first_second[i].left  = NULL; 
+    arr_first_second[i].right = NULL;
+    arr_first_second[i].first_value  = first_strs;
+    arr_first_second[i].second_value = second_strs;
+
+    arr_second_first[i].prev  = NULL; 
+    arr_second_first[i].left  = NULL; 
+    arr_second_first[i].right = NULL;
+    arr_second_first[i].first_value  = second_strs;
+    arr_second_first[i].second_value = first_strs;
+
+    *splay_tree_second = splay_tree_insert(*splay_tree_second, &arr_second_first[i]);
+    *splay_tree_first = splay_tree_insert(*splay_tree_first, &arr_first_second[i]);
+  }
+
+  return 0;
+}
+
+
+void request_processing(Node* splay_tree_first, Node* splay_tree_second)
+{
+  int m = 0;
+  scanf("%d", &m);
+
+  for(int i = 0; i < m; i++) 
+  {
+    char request[MAX_STR_SIZE] = {};
+    scanf("%s", request);
+
+    splay_tree_first =  splay_tree_find(splay_tree_first, request);
+    if (splay_tree_first && compare_elements(splay_tree_first, request) == 0) printf("%s\n", splay_tree_first->second_value);
+    else
+    {
+      splay_tree_second =  splay_tree_find(splay_tree_second, request);
+      if (splay_tree_second && compare_elements(splay_tree_second, request) == 0) printf("%s\n", splay_tree_second->second_value);
+      else printf("No same name in definition\n");
+    }
+  }
+}
+
+
+void free_memory(int n, Node* arr_first_second, Node* arr_second_first)
+{
+  for (int i = 0; i < n; i++)
+  {
+    free(arr_first_second[i].first_value);
+    free(arr_first_second[i].second_value);
+  }
+  free(arr_first_second);
+  free(arr_second_first);
+}
