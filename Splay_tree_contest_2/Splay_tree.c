@@ -10,43 +10,135 @@ const int MAX_STR_SIZE     = 600;
 
 
 typedef struct Node Node;
+/*!
+ * Struct for node splay tree.
+ */
 struct Node
 {
-    Node* prev;
-    Node* left;
-    Node* right;
+    Node* prev;              /*!< pointer to parent node */
+    Node* left;              /*!< pointer to left child */
+    Node* right;             /*!< pointer to right child */
 
-    char* first_value;
-    char* second_value;
+    char* first_value;       /*!< first value node */
+    char* second_value;      /*!< second value node */
 };
 
-typedef struct{
-    Node* min_tree;
-    Node* max_tree;
-}PairTrees;
+
+/*!
+ * Struct for pair splay trees.
+ */
+typedef struct
+{
+    Node* min_tree;          /*!< root tree with smaller nodes */
+    Node* max_tree;          /*!< root tree with bigger nodes */
+} PairTrees;
 
 
-
+/*! \brief A function do left turn.
+ *
+ * \param[in] head node that the turn is relative to.
+*/
 void left_turn(Node* head);
-void right_turn(Node *head);
 
-void zig    (Node* needed_node);
-void zig_zig(Node* needed_node);
-void zig_zag(Node* needed_node);
 
+/*! \brief A function do right turn.
+ *
+ * \param[in] head node that the turn is relative to.
+*/
+void right_turn(Node* head);
+
+
+/*! \brief A function that lifts the requested node.
+ *
+ * \param[in] needed_node requested node.
+ *
+ * \return new tree root (return splay tree).
+ * 
+ * \see left_turn(Node* head)
+ * \see right_turn(Node* head)
+*/
 Node* splay(Node* needed_node);
 
-Node*     splay_tree_find  (Node* current_node, char *elem);
-PairTrees splay_tree_split (Node* tree, char* elem);
-Node*     splay_tree_insert(Node *tree, Node* new_elem);
-Node*     splay_tree_merge (Node* min_tree, Node* max_tree);
-Node*     splay_tree_remove(Node *head, char *elem);
 
+/*! \brief A function that find the requested element in splay tree and lifts this element.
+ *
+ * \param[in] current_node root subtree, where finding element.
+ * \param[in] elem requested element.
+ *
+ * \return new tree root (return splay tree).
+ * 
+ * \see splay(Node* needed_node)
+*/
+Node*     splay_tree_find  (Node* current_node, char* elem);
+
+
+/*! \brief A function that split splay tree by value (elem) into two trees.
+ *
+ * \param[in] tree root tree.
+ * \param[in] elem value (elem) by which split takes place.
+ *
+ * \return value type PairTrees, struct wich have two trees.
+ * 
+ * \see splay_tree_find(Node* current_node, char* elem)
+ * \see compare_elements(Node* node, char* str)
+*/
+PairTrees splay_tree_split (Node* tree, char* elem);
+
+
+/*! \brief A function that insert element in splay tree.
+ *
+ * \param[in] tree root tree.
+ * \param[in] new_elem value (elem) which will insert.
+ *
+ * \return new tree root (return splay tree).
+ * 
+ * \see splay_tree_split(Node* tree, char* elem)
+*/
+Node*     splay_tree_insert(Node* tree, Node* new_elem);
+
+
+/*! \brief A function that compare node first_value and another value.
+ *
+ * \param[in] node node, which first_value compared.
+ * \param[in] str value compared.
+ *
+ * \return int number. If (node first_value) < (value) return (< 0); If (node first_value) == (value) return (0); If (node first_value) > (value) return (> 0).
+*/
 int compare_elements(Node* node, char* str);
 
 
-int  get_data          (int n, int m, Node* arr_first_second, Node* arr_second_first, Node** splay_tree_first, Node** splay_tree_second);
+/*! \brief A function get data and build splay tree.
+ *
+ * \param[in] n number of pairs.
+ * \param[in] arr_first_second array of node with correct order of values.
+ * \param[in] arr_second_first array of node with incorrect order of values.
+ * \param[in] splay_tree_first splay tree with node with incorrect order of values.
+ * \param[in] splay_tree_second splay tree with node with incorrect order of values.
+ *
+ * \return error - (1) or OK - (0).
+ * 
+ * \see splay_tree_insert(Node* tree, Node* new_elem)
+*/
+int  get_data          (int n, Node* arr_first_second, Node* arr_second_first, Node** splay_tree_first, Node** splay_tree_second);
+
+
+/*! \brief A function that processing all requests.
+ *
+ * \param[in] splay_tree_first splay tree with node with incorrect order of values.
+ * \param[in] splay_tree_second splay tree with node with incorrect order of values.
+ * 
+ * \see splay_tree_find(Node* current_node, char* elem)
+ * \see compare_elements(Node* node, char* str)
+*/
 void request_processing(Node* splay_tree_first, Node* splay_tree_second);
+
+
+/*! \brief A function that free all memory.
+ *
+ * \param[in] n number of pairs.
+ * \param[in] arr_first_second array of node with correct order of values.
+ * \param[in] arr_second_first array of node with incorrect order of values.
+*/
 void free_memory       (int n, Node* arr_first_second, Node* arr_second_first);
 
 
@@ -67,7 +159,7 @@ int main()
   if (arr_first_second == NULL || arr_second_first == NULL) return 1;
 
 
-  if (get_data(n, m, arr_first_second, arr_second_first, &splay_tree_first, &splay_tree_second) == 1) return 1;
+  if (get_data(n, arr_first_second, arr_second_first, &splay_tree_first, &splay_tree_second) == 1) return 1;
 
 
   request_processing(splay_tree_first, splay_tree_second);
@@ -114,7 +206,7 @@ void right_turn(Node *head)
   }
 
   Node* middle_child = NULL;
-  if (head->left != NULL ) 
+  if (head->left != NULL) 
   {
     middle_child = head->left->right;
 
@@ -176,9 +268,12 @@ Node* splay(Node* node)
 }
 
 
-Node* splay_tree_find(Node* current_node, char *elem) {
+Node* splay_tree_find(Node* current_node, char *elem) 
+{
     Node* last_valid = NULL;
-    while (current_node != NULL) {
+
+    while (current_node != NULL) 
+    {
         last_valid = current_node;
         int cmp = strcmp(current_node->first_value, elem);
         if (cmp == 0) break;
@@ -253,7 +348,7 @@ int compare_elements(Node* node, char* str)
 
 
 
-int get_data(int n, int m, Node* arr_first_second, Node* arr_second_first, Node** splay_tree_first, Node** splay_tree_second)
+int get_data(int n, Node* arr_first_second, Node* arr_second_first, Node** splay_tree_first, Node** splay_tree_second)
 {
 
   for(int i = 0; i < n; i++) 
@@ -263,7 +358,7 @@ int get_data(int n, int m, Node* arr_first_second, Node* arr_second_first, Node*
 
     if (first_strs == NULL || second_strs == NULL) return 1;
 
-    scanf("%s %s", first_strs, second_strs);
+    scanf("%599s %599s", first_strs, second_strs);
 
     arr_first_second[i].prev  = NULL; 
     arr_first_second[i].left  = NULL; 
@@ -293,7 +388,7 @@ void request_processing(Node* splay_tree_first, Node* splay_tree_second)
   for(int i = 0; i < m; i++) 
   {
     char request[MAX_STR_SIZE] = {};
-    scanf("%s", request);
+    scanf("%599s", request);
 
     splay_tree_first =  splay_tree_find(splay_tree_first, request);
     if (splay_tree_first && compare_elements(splay_tree_first, request) == 0) printf("%s\n", splay_tree_first->second_value);
