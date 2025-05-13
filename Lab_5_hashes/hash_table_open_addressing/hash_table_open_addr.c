@@ -156,7 +156,6 @@ TestStatus hash_table_open_addr_resize(Hash_Table_Open_Addr* hash_table_open_add
     }
 
     return status;
-    return OK;
 }
 
 

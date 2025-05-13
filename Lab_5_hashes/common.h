@@ -46,7 +46,8 @@ enum
     ERROR_MODE = 1 << 4,
     ERROR_RESIZE_DOWN = 1 << 5,
     REALLOC_RESIZE_ERROR = 1 << 6,
-    ERROR_INCLUDE_IN_HASH_TABLE = 1 << 7
+    ERROR_INCLUDE_IN_HASH_TABLE = 1 << 7,
+    ERROR_OPEN_FILE = 1 << 8
 
     // ERROR_CTOR = 1 << 1,                         /*!< Error memory allocation. */
     // ERROR_OPEN_FILE = 1 << 5,                    /*!< Error open file. */

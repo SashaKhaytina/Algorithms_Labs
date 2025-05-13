@@ -17,6 +17,11 @@ void create_new_text(FILE* file);
 int main(int argc, char* argv[])
 {
     FILE* output_file = fopen(RETURN_FILE_NAME, "w");
+    if (output_file == NULL) 
+    {
+        PRINTF_RED("ERROR open output file\n");
+        return 1;
+    }
 
     srand(time(NULL));
     #ifndef RAND_OPERATION_LINE

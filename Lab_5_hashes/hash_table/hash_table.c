@@ -5,7 +5,10 @@
 #include <stdint.h>
 #include <math.h>
 
-#ifdef TEST_HASH_FUNCTION // FIXME:
+#ifdef TEST_HASH_FUNCTION 
+
+const int NUM_LOGICAL_RIGHT_SHIFT_HASH_FUNC = 16;
+const int NUM_MULTIPLICATION_HASH_FUNC      = 0x45d9f3b;
 
 static double load_factor(Hash_Table* hash_table);
 
@@ -140,7 +143,7 @@ TestStatus hash_table_insert(Hash_Table* hash_table, Elem_t element)
     status = list_push(&(hash_table->table[ind]), element);
     hash_table->count_elements++;
 
-    if (load_factor(hash_table) > MAX_LOAD_FACTOR) hash_table_resize(hash_table, hash_table->size * RESIZE_COEFF); // FIXME: resize() 
+    if (load_factor(hash_table) > MAX_LOAD_FACTOR) hash_table_resize(hash_table, hash_table->size * RESIZE_COEFF);  
 
     return status;
 }
@@ -181,9 +184,9 @@ size_t hash_function(Elem_t element) // ее использовать по мо�
 #elif TESTNUMBIT
 size_t hash_function(Elem_t element)
 {
-    element = ((element >> 16) ^ element) * 0x45d9f3b;
-    element = ((element >> 16) ^ element) * 0x45d9f3b;
-    element = (element >> 16) ^ element;
+    element = ((element >> NUM_LOGICAL_RIGHT_SHIFT_HASH_FUNC) ^ element) * NUM_MULTIPLICATION_HASH_FUNC;
+    element = ((element >> NUM_LOGICAL_RIGHT_SHIFT_HASH_FUNC) ^ element) * NUM_MULTIPLICATION_HASH_FUNC;
+    element = (element >> NUM_LOGICAL_RIGHT_SHIFT_HASH_FUNC) ^ element;
 
     return element;
 }
@@ -218,8 +221,8 @@ size_t hash_function(Elem_t element)
 #elif TESTSTRPOLIN
 size_t hash_function(Elem_t element)
 {
-    int p = 31; // ?
-    int mod = 100000; // ?
+    int p = 31;
+    int mod = 100000;
     size_t letter_sum = 0;
     for (int i = 0; i < strlen(element); i++)
     {
@@ -255,10 +258,11 @@ TestStatus hash_table_resize(Hash_Table* hash_table, size_t new_size)
     if (new_size < hash_table->size) return ERROR_RESIZE_DOWN;
 
     List* realloced_hash_table = (List*) realloc(hash_table->table, new_size * sizeof(List));
-
     if (realloced_hash_table == NULL) return REALLOC_RESIZE_ERROR;
 
     Elem_t* template_elems = (Elem_t*) calloc(hash_table->count_elements, sizeof(Elem_t));
+    if (template_elems == NULL) return REALLOC_RESIZE_ERROR;
+    
     int counter = 0;
 
     hash_table->table          = realloced_hash_table;
@@ -329,4 +333,4 @@ static double load_factor(Hash_Table* hash_table)
 }
 
 
-#endif // FIXME:
+#endif 

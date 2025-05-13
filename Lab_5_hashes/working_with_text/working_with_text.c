@@ -9,7 +9,7 @@ const int MAX_WORD_SIZE = 30;
 size_t size_file(FILE* file);
 
 
-Text* get_elements(FILE* file) // Сань. nbit
+Text* get_elements(FILE* file)
 {
     size_t len_text = size_file(file);
     char* text = (char*) calloc(len_text + 1, sizeof(char));
@@ -21,9 +21,12 @@ Text* get_elements(FILE* file) // Сань. nbit
     }
 
     Text* struct_with_words = (Text*) calloc(1, sizeof(Text));
+    if (struct_with_words == NULL) return NULL;
 
     #ifndef TESTNUM // TESTSTR
     struct_with_words->words = (char**) calloc(len_text, sizeof(char*));
+    if (struct_with_words->words == NULL) return NULL;
+
     struct_with_words->count_words = 0;
     
     char elem[MAX_WORD_SIZE]; 
@@ -31,6 +34,7 @@ Text* get_elements(FILE* file) // Сань. nbit
     while(sscanf(current_text, "%s", elem) == 1) 
     {
         char* added_elem = calloc(MAX_WORD_SIZE, sizeof(char));
+        if (added_elem == NULL) return NULL;
         strcpy(added_elem, elem);
         // printf("%s\n", added_elem);
         struct_with_words->words[struct_with_words->count_words++] = added_elem;
@@ -45,6 +49,7 @@ Text* get_elements(FILE* file) // Сань. nbit
 
     #else // TESTNUM
     struct_with_words->words = (int*) calloc(len_text, sizeof(int));
+    if (struct_with_words->words == NULL) return NULL;
     struct_with_words->count_words = 0;
     
     char* current_text = text;

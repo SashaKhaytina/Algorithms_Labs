@@ -54,15 +54,24 @@ int main()
     printf("Something\n");
 
     FILE* file = fopen(PROCESSED_FILE_NAME, "r");
+    if (file == NULL) 
+    {
+        PRINTF_RED("ERROR open processed file\n");
+        return ERROR_OPEN_FILE;
+    }
     Text* words = get_elements(file);
 
 
-    // printf("I done. I am molodec :=( \n");
     srand(time(NULL));
     double average_time = 0;
 
     #ifdef TEST_HASH_FUNCTION
     FILE* graphic_file = fopen(GRAPHIC_FILE, "w");
+    if (graphic_file == NULL) 
+    {
+        PRINTF_RED("ERROR open graphic file\n");
+        return ERROR_OPEN_FILE;
+    }
 
     PRINTF_RED("TEST_HASH_FUNCTION\n");
     Hash_Table* hash_table = hash_table_ctor(HASH_TABLE_SIZE);
