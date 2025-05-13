@@ -31,10 +31,17 @@ titles = [
     f"Метод, предложенный Кнутом (дисперсия - {var3:.2f})"
 ]
 
+
+widht_stolbs = [
+    0.5,
+    2,
+    0.8,
+]
+
 # Построение 3 гистограмм в одном ряду
 for i, (x, y) in enumerate(all_data_of_files, 1):
     plt.subplot(1, 3, i)                  # 1 строка, 3 столбца, текущий график i
-    plt.bar(x, y, color=plt.cm.tab10(i))  # Разные цвета для каждого графика
+    plt.bar(x, y, width=widht_stolbs[i-1], color=plt.cm.tab10(i))  # Разные цвета для каждого графика
     plt.xlabel("Значение хеш-функции")
     plt.ylabel("Количество элементов")
     plt.title(titles[i-1])
@@ -43,3 +50,4 @@ for i, (x, y) in enumerate(all_data_of_files, 1):
 plt.tight_layout()  
 plt.savefig("hash_functions_for_numbers_comparison.png", dpi=300)
 plt.show()
+
