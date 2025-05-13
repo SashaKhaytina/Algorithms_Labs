@@ -34,7 +34,6 @@ typedef int Elem_t;
 #else
 typedef char* Elem_t;
 #endif
-// extern const int HASH_TABLE_SIZE = 50;
 
 
 enum
@@ -42,25 +41,15 @@ enum
     OK = 0,                                         /*!< Everything is correct. */
     DELETE_STACK_WITHOUT_THIS_ELEMENT = 1 << 1,     /*!< Delete elem, whose not in the Hash table. */
     CALLOC_NODE_ERROR = 1 << 2,                     /*!< Error memory allocation when create node for list. */
-    ERROR_NULL_POINTER = 1 << 3,                    /*!< Pointer is NULL */
-    ERROR_MODE = 1 << 4,
-    ERROR_RESIZE_DOWN = 1 << 5,
-    REALLOC_RESIZE_ERROR = 1 << 6,
-    ERROR_INCLUDE_IN_HASH_TABLE = 1 << 7,
-    ERROR_OPEN_FILE = 1 << 8
-
-    // ERROR_CTOR = 1 << 1,                         /*!< Error memory allocation. */
-    // ERROR_OPEN_FILE = 1 << 5,                    /*!< Error open file. */
-
-    // ERROR = 1 << 6                                /*!< Default error */
+    ERROR_NULL_POINTER = 1 << 3,                    /*!< Pointer is NULL. */
+    ERROR_MODE = 1 << 4,                            /*!< Нappened entry to function wich not for declared mode. */
+    ERROR_RESIZE_DOWN = 1 << 5,                     /*!< Resize function have arguments wich lead to a reduction in size hash table. */
+    REALLOC_RESIZE_ERROR = 1 << 6,                  /*!< Error memory allocation when resize hash table. */
+    ERROR_INCLUDE_IN_HASH_TABLE = 1 << 7,           /*!< Error include element in hash table. */
+    ERROR_OPEN_FILE = 1 << 8                        /*!< Error open file. */
+    
 } typedef TestStatus;
 
-
-// enum
-// {
-//     LIST,
-//     OPEN_ADDR
-// } typedef HashTableType;
 
 
 typedef struct Text Text;

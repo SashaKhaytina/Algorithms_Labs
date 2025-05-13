@@ -59,7 +59,6 @@ TestStatus hash_table_open_addr_insert(Hash_Table_Open_Addr* hash_table_open_add
 {
     CHECK_SOME_IS_NULL(ERROR_NULL_POINTER, hash_table_open_addr)
     TestStatus status = OK;
-    // printf("%d - num\n", element);
 
     
     size_t ind = hash_function(element) % hash_table_open_addr->size;
