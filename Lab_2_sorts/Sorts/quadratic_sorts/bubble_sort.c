@@ -1,18 +1,18 @@
 #include "bubble_sort.h"
 
-void swap(int* arr, size_t ind_1, size_t ind_2);
+void swap(int* num_array, size_t ind_1, size_t ind_2);
 
 
-void bouble_sort(int* arr, size_t arr_size)
+void bouble_sort(int* num_array, size_t arr_size)
 {
     for (size_t i = 0; i < arr_size; i++)
     {
         int difference = 0;
         for (size_t j = 0; j < arr_size - i - 1; j++)
         {
-            if (arr[j] > arr[j + 1]) 
+            if (num_array[j] > num_array[j + 1]) 
             {
-                swap(arr, j, j + 1);
+                swap(num_array, j, j + 1);
                 difference = 1;
             }
         }
@@ -20,9 +20,9 @@ void bouble_sort(int* arr, size_t arr_size)
     }
 }
 
-void swap(int* arr, size_t ind_1, size_t ind_2)
+void swap(int* num_array, size_t ind_1, size_t ind_2)
 {
-    int temp = arr[ind_1];
-    arr[ind_1] = arr[ind_2];
-    arr[ind_2] = temp;
+    int temp = num_array[ind_1];
+    num_array[ind_1] = num_array[ind_2];
+    num_array[ind_2] = temp;
 }

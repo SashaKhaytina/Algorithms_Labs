@@ -11,7 +11,7 @@
 
 
 
-void print_arr(int* arr, size_t n);
+void print_arr(int* num_array, size_t n);
 
 
 int main()
@@ -20,15 +20,15 @@ int main()
     char str2[] = "Program_return_tests";
 
 
-    test_sort(str1, str2, quick_hoar_sort, 1, 1000000, 10000);
+    test_sort(str1, str2, quick_hoar_sort, 1, 10, 2);
 }
 
 
-void print_arr(int* arr, size_t n)
+void print_arr(int* num_array, size_t n)
 {
     for (size_t i = 0; i < n; i++)
     {
-        printf("%d ", arr[i]);
+        printf("%d ", num_array[i]);
     }
     printf("\n");
 }

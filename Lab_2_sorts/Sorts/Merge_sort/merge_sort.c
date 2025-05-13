@@ -6,22 +6,22 @@
 void merge(int* base_array, int* arr1, size_t n1, int* arr2, size_t n2);
 
 
-void merge_recursive_sort(int* arr, size_t arr_size)
+void merge_recursive_sort(int* num_array, size_t arr_size)
 {
     size_t mid = arr_size / 2;
     if (mid == 0) return;
 
-    int* left = arr;
-    int* right = arr + mid;
+    int* left = num_array;
+    int* right = num_array + mid;
 
     merge_recursive_sort(left, mid);
     merge_recursive_sort(right, arr_size - mid);
 
-    merge(arr, left, mid, right, arr_size - mid);
+    merge(num_array, left, mid, right, arr_size - mid);
 }
 
 
-void merge_iterative_sort(int* arr, size_t arr_size)
+void merge_iterative_sort(int* num_array, size_t arr_size)
 {
     for (size_t size_subarr = 1; size_subarr < arr_size; size_subarr *= 2)
     {
@@ -34,7 +34,7 @@ void merge_iterative_sort(int* arr, size_t arr_size)
             size_t arr_size2 = size_subarr;
             if (arr_size2 + right > arr_size) arr_size2 = arr_size - right;
 
-            merge(arr + left, arr + left, arr_size1, arr + right, arr_size2);
+            merge(num_array + left, num_array + left, arr_size1, num_array + right, arr_size2);
         }
     }
 }

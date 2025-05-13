@@ -15,15 +15,15 @@ const char* GRAPH_TABLE   = "Graphic/quick_hoar_sort.txt";
 
 
 int* get_test(FILE* f_input, int test_size);
-void write_test_answer_and_compare(FILE* f_out, FILE* f_cmp, int* array, int test_size);
+void write_test_answer_and_compare(FILE* f_out, FILE* f_cmp, int* num_array, int test_size);
 char* join_file_name(char* file_in, int test_size, int num_test, enum FileType type);
-void fill_num_array(int* array, int test_size, char* text, int len_text);
+void fill_num_array(int* num_array, int test_size, char* text, int len_text);
 size_t size_file(FILE* file);
 
 
 
 
-double* test_sort(char* tests_in_way, char* tests_output_way, void (*sort)(int* arr, size_t size), int from, int to, int step)
+double* test_sort(char* tests_in_way, char* tests_output_way, void (*sort)(int* array, size_t size), int from, int to, int step)
 {
     double* time_arr = (double*) calloc((to - from + 1) / step + 1, sizeof(double));
     int size_time_arr = 0;
@@ -39,14 +39,14 @@ double* test_sort(char* tests_in_way, char* tests_output_way, void (*sort)(int* 
             assert(f_input);
 
 
-            int* array = get_test(f_input, test_size);
+            int* num_array = get_test(f_input, test_size);
             
             fclose(f_input);
             free(file_in);
 
 
             // TEST
-            COUNT_TIME(sort(array, test_size);)
+            COUNT_TIME(sort(num_array, test_size);)
 
 
             // WRITE
@@ -54,14 +54,16 @@ double* test_sort(char* tests_in_way, char* tests_output_way, void (*sort)(int* 
             char* file_in_cmp = join_file_name(tests_in_way, test_size, j, OUT);
             FILE* f_out = fopen(file_out, "w");
             FILE* f_cmp = fopen(file_in_cmp, "r");
+            assert(f_out);
+            assert(f_cmp);
 
-            write_test_answer_and_compare(f_out, f_cmp, array, test_size); 
+            write_test_answer_and_compare(f_out, f_cmp, num_array, test_size); 
             
             fclose(f_out);
             fclose(f_cmp);
             free(file_out);
             free(file_in_cmp);
-            free(array);
+            free(num_array);
 
         }
         time_arr[size_time_arr++] = average_time / 5;
@@ -80,8 +82,8 @@ int* get_test(FILE* f_input, int test_size)
 
     if (test_size > MAX_TEST_SIZE) return NULL;
 
-    int* array = (int*) calloc(test_size, sizeof(int));
-    assert(array);
+    int* num_array = (int*) calloc(test_size, sizeof(int));
+    assert(num_array);
 
     // read text
     size_t len_text = size_file(f_input);
@@ -89,22 +91,22 @@ int* get_test(FILE* f_input, int test_size)
     size_t count_symbol = fread(text, sizeof(char), len_text, f_input);
     assert(len_text == count_symbol);
 
-    fill_num_array(array, test_size, text, len_text);
+    fill_num_array(num_array, test_size, text, len_text);
 
     free(text);
 
-    return array;
+    return num_array;
 
 }
 
-void write_test_answer_and_compare(FILE* f_out, FILE* f_cmp, int* array, int test_size)
+void write_test_answer_and_compare(FILE* f_out, FILE* f_cmp, int* num_array, int test_size)
 {
     for (int i = 0; i < test_size; i++)
     {
         int num = 0;
         fscanf(f_cmp, "%d", &num);
-        assert(num == array[i]);
-        fprintf(f_out, "%d\n", array[i]);
+        assert(num == num_array[i]);
+        fprintf(f_out, "%d\n", num_array[i]);
     }
 }
 
@@ -122,7 +124,7 @@ char* join_file_name(char* file_in, int test_size, int num_test, enum FileType t
 }
 
 
-void fill_num_array(int* array, int test_size, char* text, int len_text)
+void fill_num_array(int* num_array, int test_size, char* text, int len_text)
 {
     int counter = 0;
     int current_num = 0;
@@ -132,7 +134,7 @@ void fill_num_array(int* array, int test_size, char* text, int len_text)
         {
             if (counter + 1 > test_size) return;
 
-            array[counter] = current_num;
+            num_array[counter] = current_num;
             counter++;
             current_num = 0;
 

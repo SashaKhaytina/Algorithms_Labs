@@ -8,20 +8,20 @@ int compare(const void* elem1, const void* elem2);
 
 void sort_test(FILE* input, int size)
 {
-    uint32_t array[MAX_BUFFER_SIZE] = {};
+    uint32_t num_array[MAX_BUFFER_SIZE] = {};
     
     for (int i = 0; i < size; i++)
     {
         uint32_t num = 0;
         fscanf(input, "%d", &num);
-        array[i] = num;
+        num_array[i] = num;
     }
 
-    qsort(array, size, sizeof(uint32_t), compare);
+    qsort(num_array, size, sizeof(uint32_t), compare);
 
     for (int i = 0; i < size; i++)
     {
-        printf("%d\n", array[i]);
+        printf("%d\n", num_array[i]);
     }
 }
 

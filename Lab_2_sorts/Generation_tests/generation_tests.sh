@@ -1,5 +1,13 @@
 #!/bin/bash
 
+if [ "$(basename "$PWD")" != "Generation_tests" ]; 
+then
+    echo "Ошибка: Скрипт должен запускаться из папки Generation_tests!"
+    exit 1
+fi
+
+mkdir -p TESTS
+
 gcc Create_ONE_Test/create_test.c -o Create_ONE_Test/create_test
 gcc Sort_ONE_Test/sort_test.c -o Sort_ONE_Test/sort_test
 
@@ -9,6 +17,8 @@ to=$2
 step=$3
 
 current=$from
+
+
 while [ "$current" -le "$to" ]; 
 do
     counter=1
