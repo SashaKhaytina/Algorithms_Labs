@@ -10,10 +10,18 @@
 const int NUM_LOGICAL_RIGHT_SHIFT_HASH_FUNC = 16;
 const int NUM_MULTIPLICATION_HASH_FUNC      = 0x45d9f3b;
 
+const int PRIME_NUM_FOR_POLIM_HASH_FUNC = 31;
+const int MOD_FOR_POLIM_HASH_FUNC       = 1e9 + 7;
+
+
 static double load_factor(Hash_Table* hash_table);
 
 
 #ifdef TESTSTRCRC32
+const int CRC_SHIFT = 8;
+const int CRC_GIVE_LAST_EIGHT_BIT = 0xFF;
+const int CRC_STANDART_START_NUM  = 0xFFFFFFFF;
+
 static const unsigned int crc32_table[] =
 {
   0x00000000, 0x04c11db7, 0x09823b6e, 0x0d4326d9,
@@ -158,7 +166,9 @@ TestStatus hash_table_delete(Hash_Table* hash_table, Elem_t element)
     size_t ind = hash_function(element) % hash_table->size;
 
     status = list_delete(&(hash_table->table[ind]), element);
-    hash_table->count_elements--; // FIXME: добавить обработку отсутствия эелемента в таблице
+    CHECK_STATUS_OK(status)
+
+    hash_table->count_elements--;
 
     return status;
 }
@@ -190,8 +200,8 @@ size_t hash_function(Elem_t element)
 
     return element;
 }
-#else //#elif TESTNUMKNYT
-size_t hash_function(Elem_t element) // Method Knyta
+#else //#elif TESTNUMKNUT
+size_t hash_function(Elem_t element) // Method Knuta
 {
     double A = ((sqrt(5) - 1) / 2);
     int p = 12;
@@ -211,7 +221,8 @@ size_t hash_function(Elem_t element)
 size_t hash_function(Elem_t element)
 {
     size_t letter_sum = 0;
-    for (int i = 0; i < strlen(element); i++)
+    int len_str = strlen(element);
+    for (int i = 0; i < len_str; i++)
     {
         letter_sum += element[i];
     }   
@@ -221,13 +232,14 @@ size_t hash_function(Elem_t element)
 #elif TESTSTRPOLIN
 size_t hash_function(Elem_t element)
 {
-    int p = 31;
-    int mod = 100000;
+    int p = PRIME_NUM_FOR_POLIM_HASH_FUNC;
+    int mod = MOD_FOR_POLIM_HASH_FUNC;
     size_t letter_sum = 0;
-    for (int i = 0; i < strlen(element); i++)
+    int len_str = strlen(element);
+    for (int i = 0; i < len_str; i++)
     {
         letter_sum += element[i] * p;
-        p *= p;
+        p = (p * p) % mod;
     }   
 
     return letter_sum;
@@ -236,15 +248,15 @@ size_t hash_function(Elem_t element)
 size_t hash_function(Elem_t element)
 {
     // CRC32
-    uint32_t crc = 0xFFFFFFFF;
+    uint32_t crc = CRC_STANDART_START_NUM;
     
     while (*element != '\0') {
         uint8_t byte = *element;
-        crc = (crc >> 8) ^ crc32_table[(crc ^ byte) & 0xFF];
+        crc = (crc >> CRC_SHIFT) ^ crc32_table[(crc ^ byte) & CRC_GIVE_LAST_EIGHT_BIT];
         element++;
     }
     
-    return crc ^ 0xFFFFFFFF;
+    return crc ^ CRC_STANDART_START_NUM;
 }
 #endif
 

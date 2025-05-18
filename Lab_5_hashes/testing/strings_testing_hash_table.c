@@ -23,12 +23,6 @@ TestStatus str_test_hash_table(Hash_Table* hash_table, Text* words)
     dump_hash_table(hash_table);
     #endif
 
-    // for (size_t i = 0; i < COUNT_TESTS_CYCLE; i++)
-    // {
-    //     status |= str_find_random_words_in_hash_table(hash_table);
-    //     CHECK_STATUS_OK(status)
-    // }
-
     status |= str_find_random_words_in_hash_table(hash_table);
     CHECK_STATUS_OK(status)
 
@@ -43,38 +37,6 @@ TestStatus str_test_hash_table(Hash_Table* hash_table, Text* words)
 
 TestStatus str_fill_hash_table(Hash_Table* hash_table, Text* words)
 {
-    // #ifndef TESTNUM
-    // CHECK_SOME_IS_NULL(ERROR_NULL_POINTER, hash_table)
-    // TestStatus status = OK;
-
-
-    // // MEMORY!
-    // for (int i = 0; i < 100; i++)
-    // {
-    //     CHECK_STATUS_OK(status)
-
-    //     int size_word = 5 + rand() % 16;
-    //     if (size_word > SIZE_RANDOM_WORD) size_word = SIZE_RANDOM_WORD;
-
-    //     char* element = (char*) calloc(size_word, sizeof(char));
-
-    //     for (int j = 0; j < size_word; j++)
-    //     {
-    //         int letter = 97 + rand() % 26;
-    //         element[j] = letter;
-    //     }
-    //     printf("%s - new str\n", element);
-
-
-    //     status |= hash_table_insert(hash_table, element);
-    // }
-
-    // return status;
-
-    // #else
-    // return ERROR_MDOE;
-    // #endif
-
     #ifndef TESTNUM
     CHECK_SOME_IS_NULL(ERROR_NULL_POINTER, hash_table)
     TestStatus status = OK;
