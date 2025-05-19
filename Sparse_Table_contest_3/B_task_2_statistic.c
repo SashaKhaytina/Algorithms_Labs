@@ -3,27 +3,37 @@
 #include <math.h>
 #include <malloc.h>
 
+
+
 #define MAX 1000000007
 
 
-
-
+/*!
+ * Struct for pair (number; that index in array).
+ */
 typedef struct 
 {
     int value;
     int index_in_arr;
 } Pair;
 
+/*!
+ * Struct for 2 minimums.
+ */
 typedef struct 
 {
     Pair node[2];
-} Node; // 2 min элемента
+} Node; 
 
+
+/*!
+ * Struct for Sparse Table.
+ */
 typedef struct 
 {
-    Node** table;
-    int log_size; // количество СТРОК!
-    int array_size; // начальный массив 
+    Node** table;       /*!< Sparse Table (arrays with numbers). */
+    int log_size;       /*!< Count strings. */
+    int array_size;     /*!< Start array. */
 } Sparse_Table;
 
 
@@ -71,8 +81,6 @@ int main()
 }
 
 
-//--------------------------------------------------------------------
-
 void find_two_minimums(Node* first_node, Node* second_node, Pair* result) 
 {
     Pair temp[5] = {first_node->node[0],
@@ -84,13 +92,8 @@ void find_two_minimums(Node* first_node, Node* second_node, Pair* result)
 
     qsort(temp, 5, sizeof(Pair), cmp_pairs);
 
-    // for (int i = 0; i < 5; i++)
-    // {
-    //     printf("%d - val, %d - ind\n", temp[i].value,  temp[i].index_in_arr);
-    // }
-
     result[0] = temp[0];
-    // result[1] = {};
+
     for (int i = 0; i < 5; i++)
     {
         if (cmp_pairs(&temp[0], &temp[i]) != 0)
@@ -99,7 +102,6 @@ void find_two_minimums(Node* first_node, Node* second_node, Pair* result)
             break;
         }
     }
-    // result[1] = temp[1];
 }
 
 
@@ -109,7 +111,6 @@ Sparse_Table* sparse_table_build(int* array, int array_size)
     Sparse_Table* sparse_table = (Sparse_Table*) calloc(1, sizeof(Sparse_Table));
     sparse_table->array_size = array_size;
 
-    // int hight = ((int) log2((double) array_size)) + 2;
     int hight = 32 - __builtin_clz(array_size);
     sparse_table->log_size = hight;
     sparse_table->table = (Node**) calloc(hight, sizeof(Node*));
@@ -123,7 +124,7 @@ Sparse_Table* sparse_table_build(int* array, int array_size)
 
 void fill_sparse_table(Sparse_Table* sparse_table, int* array)
 {
-    for (int i = 0; i < sparse_table->array_size; ++i) // "листья". Тут лежаат сами числа, а не отрезк и (отрезки длиной 1)
+    for (int i = 0; i < sparse_table->array_size; ++i) // "The leaves." The numbers themselves lie here, not the segment and (segments of length 1)
     {
         sparse_table->table[0][i].node[0].value = array[i];
         sparse_table->table[0][i].node[0].index_in_arr = i;
@@ -137,7 +138,7 @@ void fill_sparse_table(Sparse_Table* sparse_table, int* array)
         {
             Pair two_minimums[2] = {};
 
-            find_two_minimums(&sparse_table->table[k - 1][i], &sparse_table->table[k - 1][i + (1 << (k - 1))], two_minimums); // ищет 2 минимума из 2 отрезков (у каждого тоже есть 2 минимума)
+            find_two_minimums(&sparse_table->table[k - 1][i], &sparse_table->table[k - 1][i + (1 << (k - 1))], two_minimums);
 
             sparse_table->table[k][i].node[0] = two_minimums[0];
             sparse_table->table[k][i].node[1] = two_minimums[1];
@@ -149,7 +150,6 @@ int get_second_min_in_segment(Sparse_Table* sparse_table, int left, int right)
 {
     int len = right - left + 1;
 
-    // int needed_hight = ((int) log2((double) len)) + 2;
      int needed_hight = 31 - __builtin_clz(len);
 
     Pair res[2] = {};
@@ -165,6 +165,6 @@ int cmp_pairs(const void* a, const void* b)
     Pair* pairA = (Pair*) a;
     Pair* pairB = (Pair*) b;
 
-    if (pairA->value != pairB->value) return pairA->value - pairB->value; // сортировка по значению
-    return pairA->index_in_arr - pairB->index_in_arr; // если = то по индексу
+    if (pairA->value != pairB->value) return pairA->value - pairB->value; // sorting by value
+    return pairA->index_in_arr - pairB->index_in_arr; // sorting by indexes
 }
