@@ -17,7 +17,7 @@ Sparse_Table_Longer* sparse_table_longer__build(int* array, int array_size)
     sparse_table->array_size = array_size;
 
     // int hight = ((int) log2((double) array_size)) + 2;
-    int hight = 32 - __builtin_clz(array_size);
+    int hight = BIT_IN_INT - __builtin_clz(array_size);
     sparse_table->hight = hight;
     sparse_table->table = (Node_longer**) calloc(hight, sizeof(Node_longer*));
     if (sparse_table->table == NULL) 
@@ -111,7 +111,7 @@ void sparse_table_longer__dump(Sparse_Table_Longer* sparse_table)
 {
     assert(sparse_table);
     
-    printf("Sparse Table Dump (%d rows x %d cols):\n", 32 - __builtin_clz(sparse_table->array_size), sparse_table->array_size);
+    printf("Sparse Table Dump (%d rows x %d cols):\n", BIT_IN_INT - __builtin_clz(sparse_table->array_size), sparse_table->array_size);
     
     printf("     ");
     for (int j = 0; j < sparse_table->array_size; j++) printf("| %6d ", j);
@@ -121,7 +121,7 @@ void sparse_table_longer__dump(Sparse_Table_Longer* sparse_table)
     printf("\n");
     
 
-    for (int i = 0; i < 32 - __builtin_clz(sparse_table->array_size); i++)
+    for (int i = 0; i < BIT_IN_INT - __builtin_clz(sparse_table->array_size); i++)
     {
         printf(" %6d ", 1 << i);
 

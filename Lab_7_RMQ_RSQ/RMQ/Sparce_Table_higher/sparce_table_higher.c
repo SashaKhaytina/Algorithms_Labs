@@ -27,7 +27,7 @@ Sparse_Table_Higher* sparse_table_higher__build(int* array, int array_size)
     }
 
 
-    int wight = 32 - __builtin_clz(array_size);
+    int wight = BIT_IN_INT - __builtin_clz(array_size);
     for (int i = 0; i < hight; i++)
     {
         sparse_table->table[i] = (Node_higher*) calloc(wight, sizeof(Node_higher));
@@ -58,7 +58,7 @@ void sparse_table_higher__fill(Sparse_Table_Higher* sparse_table, int* array)
         sparse_table->table[i][0].minimum = array[i];
     }
 
-    int levels_stolbs = 32 - __builtin_clz(sparse_table->array_size);
+    int levels_stolbs = BIT_IN_INT - __builtin_clz(sparse_table->array_size);
     for (int j = 1; j < levels_stolbs; j++)  
     {
         for (int i = 0; i <= sparse_table->hight - (1 << j); i++)
@@ -119,14 +119,14 @@ void sparse_table_higher__dump(Sparse_Table_Higher* sparse_table)
 {
     assert(sparse_table);
     
-    printf("Sparse Table Dump (%d rows x %d cols):\n", sparse_table->hight, 32 - __builtin_clz(sparse_table->array_size));
+    printf("Sparse Table Dump (%d rows x %d cols):\n", sparse_table->hight, BIT_IN_INT - __builtin_clz(sparse_table->array_size));
     
     printf("     ");
 
-    for (int j = 0; j < 32 - __builtin_clz(sparse_table->array_size); j++) printf("| %6d ", 1 << j);
+    for (int j = 0; j < BIT_IN_INT - __builtin_clz(sparse_table->array_size); j++) printf("| %6d ", 1 << j);
     printf("\n");
     
-    for (int j = 0; j < 32 - __builtin_clz(sparse_table->array_size) + 1; j++) printf("---------");
+    for (int j = 0; j < BIT_IN_INT - __builtin_clz(sparse_table->array_size) + 1; j++) printf("---------");
     printf("\n");
     
 
@@ -134,7 +134,7 @@ void sparse_table_higher__dump(Sparse_Table_Higher* sparse_table)
     {
         printf(" %6d ", i);
 
-        for (int j = 0; j < 32 - __builtin_clz(sparse_table->array_size); j++) 
+        for (int j = 0; j < BIT_IN_INT - __builtin_clz(sparse_table->array_size); j++) 
         {
             if (i + (1 << j) <= sparse_table->array_size) printf("| %6d ", sparse_table->table[i][j].minimum);
             else printf("| %6s ", "-");

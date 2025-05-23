@@ -14,4 +14,6 @@ typedef struct
 
 typedef int Elem_t;
 
+#define BIT_IN_INT 32
+
 #endif
